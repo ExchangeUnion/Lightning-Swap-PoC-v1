@@ -1,5 +1,12 @@
 # Lightning Payment Channels
 
+### Setup
+We continue to use the `identity_pubkey`s of Exchange A and Exchange B which were set up [here](LIGHTNING-01-peers.md)
+
+```
+$ X_A_ID_PUBKEY=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7
+$ X_B_ID_PUBKEY=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc
+```
 
 ### Exchange A opens 0.16 BTC payment channel to Exchange B
 Check open payment channels for Exchange A
@@ -12,20 +19,23 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 
 Exchange A tries to open `0.9 BTC` channel to Exchange B, getting limit error imposed by the [spec](https://github.com/lightningnetwork/lightning-rfc/blob/master/02-peer-protocol.md#requirements)
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --local_amt=90000000 --ticker=BTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=90000000 --ticker=BTC
 [lncli] rpc error: code = Unknown desc = funding amount is too large, the max channel size is: 0.16777216 BTC
 ```
 
 Exchange A opens `0.16 BTC` channel to Exchange B with the following [BTC funding transaction](https://www.blocktrail.com/tBTC/tx/1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077)
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --local_amt=16000000 --ticker=BTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=16000000 --ticker=BTC
 {
     "funding_txid": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077"
 }
 
 ```
 
-Exchange A lists the `Bitcoin` payment channel as follows
+Funding transaction must be confirmed before a channel is opened.
+The default number of confirmations is 1.
+
+Once the channel is opened, Exchange A lists the `Bitcoin` payment channel as follows
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
@@ -93,18 +103,18 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 ### Checking Swap Routes
 Exchange A has no swap route to Exchange B yet
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 [lncli] rpc error: code = Unknown desc = unable to find a path to destination
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 [lncli] rpc error: code = Unknown desc = unable to find a path to destination
 
 ```
 
 Exchange B has no swap route to Exchange A yet
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7 --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 [lncli] rpc error: code = Unknown desc = unable to find a path to destination
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7 --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 [lncli] rpc error: code = Unknown desc = unable to find a path to destination
 ```
 
@@ -139,7 +149,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 
 Exchange B opens `0.1 LTC` channel to Exchange A with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4)
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons openchannel --node_key=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7 --local_amt=10000000 --ticker=LTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons openchannel --node_key=$X_A_ID_PUBKEY --local_amt=10000000 --ticker=LTC
 {
     "funding_txid": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4"
 }
@@ -259,7 +269,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 ### Checking Swap Routes
 Exchange A has the following swap routes to Exchange B
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 {
     "routes": [
 	{
@@ -285,7 +295,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a0
 	}
     ]
 }
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 {
     "routes": [
 	{
@@ -315,7 +325,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0248a0
 
 Exchange B has the following swap routes to Exchange A
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7 --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 {
     "routes": [
 	{
@@ -341,7 +351,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f
 	}
     ]
 }
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7 --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 {
     "routes": [
 	{
