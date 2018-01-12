@@ -28,14 +28,14 @@ Options used to compile and link:
   werror        = no
 
   target os     = linux
-  build os      = 
+  build os      =
 
   CC            = gcc
   CFLAGS        = -g -O2
   CPPFLAGS      =  -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS
   CXX           = g++ -std=c++11
   CXXFLAGS      = -g -O2 -Wall -Wextra -Wformat -Wvla -Wformat-security -Wno-unused-parameter
-  LDFLAGS       = 
+  LDFLAGS       =
 ```
 
 Here are the binaries built and installed under prefix
@@ -54,12 +54,12 @@ $ mkdir -p $HOME/xu/litecoin
 $ $HOME/xu/root/bin/litecoin-qt -datadir=$HOME/xu/litecoin -testnet
 ```
 
-Litecoin Testnet Faucet
+#### Litecoin Testnet Faucet
 ```
 http://testnet.thrasher.io
 ```
 
-Litecoin Testnet Explorer
+#### Litecoin Testnet Explorer
 ```
 https://chain.so/testnet/ltc
 ```
