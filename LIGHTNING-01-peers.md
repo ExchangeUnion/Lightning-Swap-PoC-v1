@@ -10,6 +10,20 @@ $ cd $HOME/exchange-a
 $ lnd --rpcport=10001 --peerport=10011 --restport=8001 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
 ```
 
+#### Create Wallets and Addresses
+Create `Bitcoin` and `Litecoin` wallets for Exchange A
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons create
+Input wallet password: 
+Confirm wallet password: 
+```
+
+If wallets are already created then `unlock`
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons unlock
+Input wallet password:
+```
+
 Check status of Exchange A
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
@@ -28,20 +42,6 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
 	"litecoin"
     ]
 }
-```
-
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange A
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons create
-Input wallet password: 
-Confirm wallet password: 
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons unlock
-Input wallet password:
 ```
 
 Create Exchange A Segwit addresses for both `Bitcoin` and `Litecoin`
@@ -93,6 +93,20 @@ $ cd $HOME/exchange-b
 $ lnd --rpcport=10002 --peerport=10012 --restport=8002 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
 ```
 
+#### Create Wallets and Addresses
+Create `Bitcoin` and `Litecoin` wallets for Exchange B
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons create
+Input wallet password: 
+Confirm wallet password: 
+```
+
+If wallets are already created then `unlock`
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons unlock
+Input wallet password:
+```
+
 Check status of Exchange B
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
@@ -111,20 +125,6 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 	"bitcoin"
     ]
 }
-```
-
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange B
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons create
-Input wallet password: 
-Confirm wallet password: 
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons unlock
-Input wallet password:
 ```
 
 Create Segwit addresses for both `Bitcoin` and `Litecoin`

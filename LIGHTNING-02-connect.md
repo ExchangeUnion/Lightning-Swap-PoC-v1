@@ -24,19 +24,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons listpeers
 {
-    "peers": [
-	{
-	    "pub_key": "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134",
-	    "peer_id": 1,
-	    "address": "34.250.234.192:9735",
-	    "bytes_sent": "70416",
-	    "bytes_recv": "79528",
-	    "sat_sent": "0",
-	    "sat_recv": "0",
-	    "inbound": true,
-	    "ping_time": "10194494"
-	}
-    ]
+    "peers": []
 }
 ```
 

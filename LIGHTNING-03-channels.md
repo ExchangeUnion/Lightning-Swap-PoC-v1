@@ -368,3 +368,5 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=026a2f
     ]
 }
 ```
+
+Note that until the funding transaction for both channels have 6 confirmations, `queryswaproutes` will return `[lncli] rpc error: code = Unknown desc = unable to find a path to destination` even though the channels may appear active in `listchannels`.
