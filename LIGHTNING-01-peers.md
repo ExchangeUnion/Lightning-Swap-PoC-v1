@@ -10,13 +10,12 @@ $ cd $HOME/exchange-a
 $ lnd --rpcport=10001 --peerport=10011 --restport=8001 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
 ```
 
-<<<<<<< HEAD
 #### Create Wallets and Addresses
 Create `Bitcoin` and `Litecoin` wallets for Exchange A
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons create
-Input wallet password: 
-Confirm wallet password: 
+Input wallet password:
+Confirm wallet password:
 ```
 
 If wallets are already created then `unlock`
@@ -26,11 +25,6 @@ Input wallet password:
 ```
 
 Check status of Exchange A
-=======
-#### Check status of Exchange A
-Make sure you have already created a wallet or unlocked it (see next section).
-
->>>>>>> Review LIGHTNING-01-peers
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
 {
@@ -50,23 +44,6 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
 }
 ```
 
-<<<<<<< HEAD
-=======
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange A
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons create
-Input wallet password:
-Confirm wallet password:
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons unlock
-Input wallet password:
-```
-
->>>>>>> Review LIGHTNING-01-peers
 Create Exchange A Segwit addresses for both `Bitcoin` and `Litecoin`
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=BTC
@@ -91,7 +68,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 }
 ```
 
-Send [1 BTC](https://www.blocktrail.com/tBTC/tx/51b7ed93da1f2290d1efde8c49bcabbb893fff02bc68a0424b44a2b938834eb9) and [0.1 LTC](https://chain.so/tx/LTCTEST/c37668cadc7fcf5b5c7b5fdb311dfa22dacf0e233bc14390b0ccff2a382aa4b6) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet))  
+Send [1 BTC](https://www.blocktrail.com/tBTC/tx/51b7ed93da1f2290d1efde8c49bcabbb893fff02bc68a0424b44a2b938834eb9) and [0.1 LTC](https://chain.so/tx/LTCTEST/c37668cadc7fcf5b5c7b5fdb311dfa22dacf0e233bc14390b0ccff2a382aa4b6) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet))
 Query Exchange A wallet balances for both `Bitcoin` and `Litecoin` after funding
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
@@ -116,13 +93,12 @@ $ cd $HOME/exchange-b
 $ lnd --rpcport=10002 --peerport=10012 --restport=8002 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
 ```
 
-<<<<<<< HEAD
 #### Create Wallets and Addresses
 Create `Bitcoin` and `Litecoin` wallets for Exchange B
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons create
-Input wallet password: 
-Confirm wallet password: 
+Input wallet password:
+Confirm wallet password:
 ```
 
 If wallets are already created then `unlock`
@@ -132,11 +108,6 @@ Input wallet password:
 ```
 
 Check status of Exchange B
-=======
-#### Check status of Exchange B
-Make sure you have already created a wallet or unlocked it (see next section).
-
->>>>>>> Review LIGHTNING-01-peers
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 {
@@ -156,23 +127,6 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 }
 ```
 
-<<<<<<< HEAD
-=======
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange B
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons create
-Input wallet password:
-Confirm wallet password:
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons unlock
-Input wallet password:
-```
-
->>>>>>> Review LIGHTNING-01-peers
 Create Segwit addresses for both `Bitcoin` and `Litecoin`
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons newaddress np2wkh --ticker=BTC
