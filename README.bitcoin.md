@@ -3,7 +3,7 @@
 
 ## Install Bitcoin Dependencies
 For Ubuntu/Debian systems install packages below following [Bitcoin requirements](https://github.com/bitcoin/bitcoin/blob/master/doc/build-unix.md#dependency-build-instructions-ubuntu--debian)  
-Tested with Ubuntu 16.04 LTS 
+Tested with Ubuntu 16.04 LTS
 
 #### for generic dependencies
 ```shell
@@ -67,14 +67,14 @@ Options used to compile and link:
   werror        = no
 
   target os     = linux
-  build os      = 
+  build os      =
 
   CC            = gcc
   CFLAGS        = -g -O2
   CPPFLAGS      =  -DHAVE_BUILD_INFO -D__STDC_FORMAT_MACROS
   CXX           = g++ -std=c++11
   CXXFLAGS      = -g -O2 -Wall -Wextra -Wformat -Wvla -Wformat-security -Wno-unused-parameter
-  LDFLAGS       = 
+  LDFLAGS       =
   ARFLAGS       = cr
 ```
 
@@ -94,12 +94,12 @@ $ mkdir -p $HOME/xu/bitcoin
 $ $HOME/xu/root/bin/bitcoin-qt -datadir=$HOME/xu/bitcoin -testnet
 ```
 
-Bitcoin Testnet Faucet
+#### Bitcoin Testnet Faucet
 ```
 https://testnet.manu.backend.hamburg/faucet
 ```
 
-Bitcoin Testnet Explorer
+#### Bitcoin Testnet Explorer
 ```
 https://www.blocktrail.com/tBTC
 https://live.blockcypher.com/btc-testnet/
