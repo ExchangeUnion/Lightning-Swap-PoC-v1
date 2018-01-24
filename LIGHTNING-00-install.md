@@ -45,6 +45,12 @@ $ glide install
 $ go install . ./cmd/...
 ```
 
+### Tests
+To check lnd was installed properly run the following command:
+```shell
+$ go install; go test -v -p 1 $(go list ./... | grep -v  '/vendor/')
+```
+
 #### Bitcoin full node implementation `btcd`
 Build and install `btcd` Bitcoin full node implementation
 ```shell
