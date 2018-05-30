@@ -88,10 +88,5 @@ Sync progress may be tracked as follows
 $ ltcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
 ```
 
-## Running Lightning Daemon
-After testnet sync is done, following command can be use to launch `lnd` for testing  
-Lightning data is stored in `$HOME/.lnd` by default
-Note the --debughtlc which is currently imprtant for this POC
-```shell
-$ lnd --debughtlc --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
-```
+## Running Lightning Daemon(s)
+Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchane-B
