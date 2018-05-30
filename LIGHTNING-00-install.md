@@ -1,5 +1,5 @@
 # Lightning
-[Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) is used to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
+This guide follows [Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
 
 ## Install Lightning Dependencies
 Download latest (`Go`) package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
@@ -8,7 +8,7 @@ Alternativly you can use apt-get
 $ sudo apt-get install golang-1.10-go
 ```
 
-Add the following lines to the end of `$HOME/.bashrc`
+Add the following lines to the end of `$HOME/.bashrc` and source the file 
 ```shell
 # add Go paths
 export GOPATH=$HOME/go
@@ -22,20 +22,7 @@ $ go get -u github.com/Masterminds/glide
 
 ## Build Lightning Daemon
 
-#### Official `lnd`
-Build and install official `lnd` daemon
-```shell
-$ git clone https://github.com/lightningnetwork/lnd $GOPATH/src/github.com/lightningnetwork/lnd
-$ cd $GOPATH/src/github.com/lightningnetwork/lnd
-$ glide install
-$ go install . ./cmd/...
-```
-
-However official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889`
-```shell
-$ lnd --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
-loadConfig: Currently both Bitcoin and Litecoin cannot be active together
-```
+Since the official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889` we will use instead an xchain-swap enabled experimental `lnd` daemon. 
 
 #### Cross-chain swap enabled `lnd`
 To build and install xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
@@ -55,12 +42,6 @@ mv /tmp/tmpfile.go $GOPATH/src/github.com/lightningnetwork/lnd/vendor/github.com
 Finally we can build
 ```shell
 $ go install . ./cmd/...
-```
-
-### Tests
-To check lnd was installed properly run the following command:
-```shell
-$ go install; go test -v -p 1 $(go list ./... | grep -v  '/vendor/')
 ```
 
 #### Bitcoin full node implementation `btcd`
