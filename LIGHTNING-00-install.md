@@ -2,9 +2,10 @@
 [Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) is used to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
 
 ## Install Lightning Dependencies
-Download latest package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local`
+Download latest (`Go`) package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
+Alternativly you can use apt-get
 ```shell
-$ sudo tar -C /usr/local -xzf go1.9.2.linux-amd64.tar.gz
+$ sudo apt-get install golang-1.10-go
 ```
 
 Add the following lines to the end of `$HOME/.bashrc`
@@ -39,9 +40,20 @@ loadConfig: Currently both Bitcoin and Litecoin cannot be active together
 #### Cross-chain swap enabled `lnd`
 To build and install xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
 ```shell
-$ git clone -b swapz https://github.com/cfromknecht/lnd.git $GOPATH/src/github.com/lightningnetwork/lnd
+$ git clone -b swapz https://github.com/ExchangeUnion/lnd.git $GOPATH/src/github.com/lightningnetwork/lnd
 $ cd $GOPATH/src/github.com/lightningnetwork/lnd
 $ glide install
+```
+Before building the binaries we would need to make a small change to roasbeef\btcd package to allow it to run under newer versions of (`Go`)
+```shell
+sed '/json.Unmarshal(msg/i\
+in.rawResponse = &rawResponse{}\
+in.rawNotification = &rawNotification{}\
+' $GOPATH/src/github.com/lightningnetwork/lnd/vendor/github.com/roasbeef/btcd/rpcclient/infrastructure.go > /tmp/tmpfile.go
+mv /tmp/tmpfile.go $GOPATH/src/github.com/lightningnetwork/lnd/vendor/github.com/roasbeef/btcd/rpcclient/infrastructure.go
+```
+Finally we can build
+```shell
 $ go install . ./cmd/...
 ```
 
@@ -98,6 +110,7 @@ $ ltcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
 ## Running Lightning Daemon
 After testnet sync is done, following command can be use to launch `lnd` for testing  
 Lightning data is stored in `$HOME/.lnd` by default
+Note the --debughtlc which is currently imprtant for this POC
 ```shell
-$ lnd --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
+$ lnd --debughtlc --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
 ```
