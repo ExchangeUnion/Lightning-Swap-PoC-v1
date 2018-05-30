@@ -80,7 +80,7 @@ We are now ready with Exchange A deamon.
 Open another terminal to set Exchange B `lnd` deamon
 
 #### Launch `lnd`
-Create a separate directory and launch `lnd` for Exchange B that uses both `Bitcoin` and `Litecoin` chains
+Create a separate directory and launch `lnd` for Exchange B that uses both `Bitcoin` and `Litecoin` chains. Keep in mind that `--debughtlc` is currently mandatory for the Poc.
 ```shell
 $ mkdir -p $HOME/exchange-b
 $ cd $HOME/exchange-b
@@ -88,7 +88,7 @@ $ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=
 ```
 Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
-#### Check staus and create Addresses
+#### Check staus 
 
 Check status of Exchange B
 ```shell
@@ -110,8 +110,6 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 }
 ```
 
-If we need to fund Exchange B we can use the same instructions we used for Exchange A. This however is not mandatory for the PoC.
-
 Query Exchange B wallet balances for both `Bitcoin` and `Litecoin` after creation
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
@@ -123,4 +121,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
     "balance": "0"
 }
 ```
- We are now ready to move to the next step and create P2P `lnd` network.
+
+If we need to fund Exchange B we can use the same instructions we used for Exchange A. This however is not mandatory for the PoC.
+
+We are now ready to move to the next step and create P2P `lnd` network.
