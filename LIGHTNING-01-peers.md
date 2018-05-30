@@ -1,46 +1,38 @@
 # Lightning Peer Setup
 
+Once we installed all components and we have Litecoin and Bitcoin synced with their blockchains we can set up `lnd` process. We are going to setup two processes that mimic two exchanges. We suggest that you run each lnd process in its own terminal and use another terminal with lncli 
+
 ## Exchange A
 
 #### Launch `lnd`
-Create a separate directory and launch `lnd` for Exchange A that uses both `Bitcoin` and `Litecoin` chains
+Create a separate directory and launch `lnd` for Exchange A that uses both `Bitcoin` and `Litecoin` chains.
+Note that --debughtlc is currently mandatory for the success of a swap 
 ```shell
 $ mkdir -p $HOME/exchange-a
 $ cd $HOME/exchange-a
-$ lnd --rpcport=10001 --peerport=10011 --restport=8001 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
+$ lnd --debughtlc --rpcport=10001 --peerport=10011 --restport=8001 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet  --noencryptwallet
 ```
+Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange A
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons create
-Input wallet password:
-Confirm wallet password:
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons unlock
-Input wallet password:
-```
+#### Check status and Create Addresses
 
 Check status of Exchange A
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
 {
-    "identity_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-    "alias": "",
-    "num_pending_channels": 0,
-    "num_active_channels": 0,
-    "num_peers": 0,
-    "block_height": 1256361,
-    "block_hash": "00000000000000a06c82beee4d9db2e5fcb6745fd363c386aa95f9dbb36edbae",
-    "synced_to_chain": true,
-    "testnet": true,
-    "chains": [
-	"bitcoin",
-	"litecoin"
-    ]
+        "identity_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+        "alias": "",
+        "num_pending_channels": 0,
+        "num_active_channels": 0,
+        "num_peers": 0,
+        "block_height": 1318976,
+        "block_hash": "0000000000000edb9491ddb942b9afcfee44ddc8dc3fdab293701307483b1771",
+        "synced_to_chain": true,
+        "testnet": true,
+        "chains": [
+                "litecoin",
+                "bitcoin"
+        ]
 }
 ```
 
@@ -48,15 +40,15 @@ Create Exchange A Segwit addresses for both `Bitcoin` and `Litecoin`
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=BTC
 {
-    "address": "2NBNkJEJ2WUvJVPMUfhLiZYYpFVvbqNRa2Q"
+        "address": "2NBRavXuXmbd73tRvgCAHhTiSuPoa3LqKdd"
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=LTC
 {
-    "address": "2NCTyvVDJ45Q6umb73Rc6xbzXPNhy75Csvm"
+        "address": "2N2yE6ZbdxePtco8DuTSQVEJNsNg74KvGd3"
 }
 ```
 
-Query Exchange A wallet balances for both `Bitcoin` and `Litecoin` after creation
+Query Exchange A wallet balances for both `Bitcoin` and `Litecoin` after creation (we expect to see zeros, right?)
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
 {
@@ -68,44 +60,35 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 }
 ```
 
-Send [1 BTC](https://www.blocktrail.com/tBTC/tx/51b7ed93da1f2290d1efde8c49bcabbb893fff02bc68a0424b44a2b938834eb9) and [0.1 LTC](https://chain.so/tx/LTCTEST/c37668cadc7fcf5b5c7b5fdb311dfa22dacf0e233bc14390b0ccff2a382aa4b6) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet))
+Send Send some BTC (B0.325 is great) and some LTC (10 is great) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet))
 Query Exchange A wallet balances for both `Bitcoin` and `Litecoin` after funding
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
 {
-    "balance": "100000000"
+        "balance": "32500000"
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 {
-    "balance": "10000000"
+        "balance": "1000000000"
 }
 ```
 
-
+We are now ready with Exchange A deamon. 
 
 ## Exchange B
 
+Open another terminal to set Exchange B `lnd` deamon
+
 #### Launch `lnd`
-Create a separate directory and launch `lnd` for Exchange A that uses both `Bitcoin` and `Litecoin` chains
+Create a separate directory and launch `lnd` for Exchange B that uses both `Bitcoin` and `Litecoin` chains
 ```shell
 $ mkdir -p $HOME/exchange-b
 $ cd $HOME/exchange-b
-$ lnd --rpcport=10002 --peerport=10012 --restport=8002 --datadir=test_data --logdir=test_log --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
+$ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=8002 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet
 ```
+Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
-#### Create Wallets and Addresses
-Create `Bitcoin` and `Litecoin` wallets for Exchange B
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons create
-Input wallet password:
-Confirm wallet password:
-```
-
-If wallets are already created then `unlock`
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons unlock
-Input wallet password:
-```
+#### Check staus and create Addresses
 
 Check status of Exchange B
 ```shell
@@ -127,18 +110,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 }
 ```
 
-Create Segwit addresses for both `Bitcoin` and `Litecoin`
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons newaddress np2wkh --ticker=BTC
-{
-    "address": "2MxniWxq22pV9gG66T85RVxaUwPpXneeBqC"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons newaddress np2wkh --ticker=LTC
-{
-    "address": "2NC2Lw2RXrYkWkjrX6xoSiNLMpv86yGWRoh"
-}
-
-```
+If we need to fund Exchange B we can use the same instructions we used for Exchange A. This however is not mandatory for the PoC.
 
 Query Exchange B wallet balances for both `Bitcoin` and `Litecoin` after creation
 ```shell
@@ -151,17 +123,4 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
     "balance": "0"
 }
 ```
-
-Send [1.3 BTC](https://www.blocktrail.com/tBTC/tx/a2fff08b81c87e7199f829a402697889ebba7e8d3ea8a895035250cb39622d35) and [10 LTC](https://chain.so/tx/LTCTEST/ee256273cd1f1d88f3d0c1f23cfc2a6dbafa2739e3b4870bd32b2421e30f44ad) to Exchange B addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet))
-Query Exchange B wallet balances for both `Bitcoin` and `Litecoin` after funding
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
-{
-    "balance": "130000000"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "1000000000"
-}
-
-```
+ We are now ready to move to the next step and create P2P `lnd` network.
