@@ -384,3 +384,5 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_I
 }
 ```
 
+[ [index](/README.md), [previous](/LIGHTNING-02-connect.md), [next](/LIGHTNING-04-payment.md) ]
+
