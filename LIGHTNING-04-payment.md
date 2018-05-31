@@ -1,3 +1,4 @@
+[ [index](/README.md), [previous](/LIGHTNING-03-channels.md), [next](/LIGHTNING-05-swap.md) ]
 # Lightning Payment
 
 #### Exchange A's Balances & Channel Status Pre Payment
