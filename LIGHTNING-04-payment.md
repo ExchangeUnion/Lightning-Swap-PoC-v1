@@ -240,4 +240,4 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
         ]
 }
 ```
-
+[ [index](/README.md), [previous](/LIGHTNING-03-channels.md), [next](/LIGHTNING-05-swap.md) ]
