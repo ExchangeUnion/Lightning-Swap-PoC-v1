@@ -296,3 +296,5 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 ```
 
 Done!!!!
+
+[ [index](/README.md), [previous](/LIGHTNING-04-payment.md) ]
