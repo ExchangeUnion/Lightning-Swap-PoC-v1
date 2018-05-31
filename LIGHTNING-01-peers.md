@@ -1,3 +1,5 @@
+[ [index](/README.md), [previous](/LIGHTNING-00-install.md), [next](/LIGHTNING-02-connect.md) ]
+
 # Lightning Peer Setup
 
 Once we installed all components and we have Litecoin and Bitcoin synced with their blockchains we can set up `lnd` process. We are going to setup two processes that mimic two exchanges. We suggest that you run each lnd process in its own terminal and use another terminal with lncli 
