@@ -68,24 +68,24 @@ $ go install . ./cmd/...
 Running the following command will create `rpc.cert`  
 Bitcoin testnet blockchain is downloaded to `$HOME/.btcd` by default
 ```shell
-$ btcd --testnet --txindex --rpcuser=kek --rpcpass=kek
+$ btcd --testnet --txindex 
 ```
 
 Sync progress may be tracked as follows
 ```shell
-$ btcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
+$ btcctl --testnet getinfo
 ```
 
 #### for Litecoin
 Running the following command will create `rpc.cert`  
 Litecoin testnet blockchain is downloaded to `$HOME/.ltcd` by default
 ```shell
-$ ltcd --testnet --txindex --rpcuser=kek --rpcpass=kek
+$ ltcd --testnet --txindex 
 ```
 
 Sync progress may be tracked as follows
 ```shell
-$ ltcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
+$ ltcctl --testnet  getinfo
 ```
 
 ## Running Lightning Daemon(s)
