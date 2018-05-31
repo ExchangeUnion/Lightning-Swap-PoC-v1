@@ -92,3 +92,5 @@ $ ltcctl --testnet  getinfo
 
 ## Running Lightning Daemon(s)
 Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchane-B
+
+[ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]
