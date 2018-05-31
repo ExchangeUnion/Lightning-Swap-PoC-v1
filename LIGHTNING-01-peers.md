@@ -127,3 +127,5 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 If we need to fund Exchange B we can use the same instructions we used for Exchange A. This however is not mandatory for the PoC.
 
 We are now ready to move to the next step and create P2P `lnd` network.
+
+[ [index](/README.md), [previous](/LIGHTNING-00-install.md), [next](/LIGHTNING-02-connect.md) ]
