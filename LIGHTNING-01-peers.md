@@ -12,7 +12,7 @@ Note that --debughtlc is currently mandatory for the success of a swap
 ```shell
 $ mkdir -p $HOME/exchange-a
 $ cd $HOME/exchange-a
-$ lnd --debughtlc --rpcport=10001 --peerport=10011 --restport=8001 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet  --noencryptwallet
+$ lnd --noencryptwallet --debughtlc --rpcport=10001 --peerport=10011 --restport=8001 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet
 ```
 Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
