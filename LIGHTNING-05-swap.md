@@ -1,3 +1,5 @@
+[ [index](/README.md), [previous](/LIGHTNING-04-payment.md) ]
+
 # Lightning Cross-Chain Swap
 
 ### Finding a Swap Route

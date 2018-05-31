@@ -1,3 +1,5 @@
+[ [index](/README.md), [previous](/LIGHTNING-02-connect.md), [next](/LIGHTNING-04-payment.md) ]
+
 # Lightning Payment Channels
 
 ### Setup

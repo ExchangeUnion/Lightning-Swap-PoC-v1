@@ -1,3 +1,5 @@
+[ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]
+
 # Lightning
 This guide follows [Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
 
