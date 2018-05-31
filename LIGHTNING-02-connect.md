@@ -108,3 +108,5 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
         ]
 }
 ```
+
+[ [index](/README.md), [previous](/LIGHTNING-01-peers.md), [next](/LIGHTNING-03-channels.md) ]
