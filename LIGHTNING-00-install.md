@@ -33,14 +33,6 @@ $ git clone -b swapz https://github.com/ExchangeUnion/lnd.git $GOPATH/src/github
 $ cd $GOPATH/src/github.com/lightningnetwork/lnd
 $ glide install
 ```
-Before building the binaries we would need to make a small change to roasbeef\btcd package to allow it to run under newer versions of (`Go`)
-```shell
-sed '/json.Unmarshal(msg/i\
-in.rawResponse = &rawResponse{}\
-in.rawNotification = &rawNotification{}\
-' $GOPATH/src/github.com/lightningnetwork/lnd/vendor/github.com/roasbeef/btcd/rpcclient/infrastructure.go > /tmp/tmpfile.go
-mv /tmp/tmpfile.go $GOPATH/src/github.com/lightningnetwork/lnd/vendor/github.com/roasbeef/btcd/rpcclient/infrastructure.go
-```
 Finally we can build
 ```shell
 $ go install . ./cmd/...
