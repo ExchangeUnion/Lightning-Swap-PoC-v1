@@ -1,236 +1,168 @@
+[ [index](/README.md), [previous](/LIGHTNING-03-channels.md), [next](/LIGHTNING-05-swap.md) ]
 # Lightning Payment
-
-## Bitcoin Payment
-Exchange B creates invoice for `1000 Satoshi`
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=1000 --ticker=BTC
-{
-    "r_hash": "ded910abaaf18047541bcee8d58e24da98f9ef87c124a993904da99d891c5cbf",
-    "pay_req": "lntb10u1pdytm2qpp5mmv3p2a27xqyw4qmem5dtr3ym2v0nmu8cyj2nyusfk5emzgutjlsdqqcqzysw345mnfc55vrqkjpj6rw3227wpnsm5lj6ujaaq8z0rvlzzluevjhd2xdx8gcrcundxpqa698ej6akr0ptem8jacuekkxwdzd85hf2wspyrfnwn"
-}
-```
-
-Exchange A pays `1000 Satoshi` using encoded payment request
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons sendpayment --pay_req=lntb10u1pdytm2qpp5mmv3p2a27xqyw4qmem5dtr3ym2v0nmu8cyj2nyusfk5emzgutjlsdqqcqzysw345mnfc55vrqkjpj6rw3227wpnsm5lj6ujaaq8z0rvlzzluevjhd2xdx8gcrcundxpqa698ej6akr0ptem8jacuekkxwdzd85hf2wspyrfnwn
-{
-    "payment_error": "",
-    "payment_preimage": "2e2384405a8f6771c30f7b560c62914b07ef7e9f5ce42772a1da6facc92dd551",
-    "payment_route": {
-	"total_time_lock": 1256822,
-	"total_amt": 1000,
-	"hops": [
-	    {
-		"chan_id": 1381475887161802752,
-		"chan_capacity": 16000000,
-		"amt_to_forward": 1000,
-		"expiry": 1256822
-	    }
-	]
-    }
-}
-```
 
 #### Exchange A's Balances & Channel Status Pre Payment
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
 {
-    "balance": "83991564"
+        "balance": "16491564"
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 {
-    "balance": "10000000"
+        "balance": "989964850"
 }
-$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
-{
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "15991312",
-	    "remote_balance": "0",
-	    "commit_fee": "8688",
-	    "commit_weight": "600",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "26",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "0",
-	    "remote_balance": "9963800",
-	    "commit_fee": "36200",
-	    "commit_weight": "552",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
-}
-```
 
-#### Exchange A's Balances & Channel Status Post Payment
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC{
-    "balance": "83991564"
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "10000000"
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
-{
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "15990312",
-	    "remote_balance": "1000",
-	    "commit_fee": "8688",
-	    "commit_weight": "724",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "1000",
-	    "total_satoshis_received": "0",
-	    "num_updates": "28",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "0",
-	    "remote_balance": "9963800",
-	    "commit_fee": "36200",
-	    "commit_weight": "552",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
-}
+
+***** add
 ```
 
 #### Exchange B's Balances & Channel Status Pre Payment
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
 {
-    "balance": "130000000"
+        "balance": "0"
 }
 $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 {
-    "balance": "989964850"
+        "balance": "0"
 }
-$ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
-{
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "0",
-	    "remote_balance": "15991312",
-	    "commit_fee": "8688",
-	    "commit_weight": "552",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "26",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "9963800",
-	    "remote_balance": "0",
-	    "commit_fee": "36200",
-	    "commit_weight": "600",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+*** add
+
+```
+
+## Bitcoin Payment
+Exchange B creates invoice for `100000 Satoshi`
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=100000 --ticker=BTC
+{{
+        "r_hash": "595577b4fdc759a0b26415e6829efd2e020e0fec6d9913e78d23af119499e842",
+        "pay_req": "lntb1m1pds7ylnpp5t92h0d8acav6pvnyzhng98ha9cpqurlvdkv38eudywh3r9yeappqdqqcqzys7pjfwckh9mkq6t5jaly26yxk33ljf635skd2r32uek8sxgw4lryh05s427zqfhzxpmdqmve69dyvgxkpe00fg0ucv38frtnrv5tzs7gqex39u3"
 }
 ```
+
+Exchange A pays `100000 Satoshi` using encoded payment request
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons sendpayment --pay_req=lntb1m1pds7ylnpp5t92h0d8acav6pvnyzhng98ha9cpqurlvdkv38eudywh3r9yeappqdqqcqzys7pjfwckh9mkq6t5jaly26yxk33ljf635skd2r32uek8sxgw4lryh05s427zqfhzxpmdqmve69dyvgxkpe00fg0ucv38frtnrv5tzs7gqex39u3
+{
+        "payment_error": "",
+        "payment_preimage": "64cbd69d8df0553b835697db6cc915ac8d351df59b57321eda0efd584df6b88f",
+        "payment_route": {
+                "total_time_lock": 1319180,
+                "total_amt": 100000,
+                "hops": [
+                        {
+                                "chan_id": 1450271230199529472,
+                                "chan_capacity": 16000000,
+                                "amt_to_forward": 100000,
+                                "expiry": 1319180
+                        }
+                ]
+        }
+}
+```
+
+
+#### Exchange A's Balances & Channel Status Post Payment
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
+{
+        "balance": "16491564"
+}
+$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
+{
+        "balance": "989964850"
+}
+$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
+{
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "15891312",
+                        "remote_balance": "100000",
+                        "commit_fee": "8688",
+                        "commit_weight": "724",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "100000",
+                        "total_satoshis_received": "0",
+                        "num_updates": "2",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                        "chan_id": "649885039294873600",
+                        "capacity": "10000000",
+                        "local_balance": "4963800",
+                        "remote_balance": "5000000",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
+}
+```
+
+
 
 #### Exchange B's Balances & Channel Status Post Payment
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
 {
-    "balance": "130000000"
+        "balance": "0"
 }
 $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 {
-    "balance": "989964850"
+        "balance": "0"
 }
 $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "1000",
-	    "remote_balance": "15990312",
-	    "commit_fee": "8688",
-	    "commit_weight": "724",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "1000",
-	    "num_updates": "28",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "9963800",
-	    "remote_balance": "0",
-	    "commit_fee": "36200",
-	    "commit_weight": "600",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "100000",
+                        "remote_balance": "15891312",
+                        "commit_fee": "8688",
+                        "commit_weight": "724",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "100000",
+                        "num_updates": "2",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                        "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                        "chan_id": "649885039294873600",
+                        "capacity": "10000000",
+                        "local_balance": "5000000",
+                        "remote_balance": "4963800",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
 
@@ -238,173 +170,74 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 ## Litecoin Payment
 Exchange A creates invoice for `5000 Litoshi`
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons getinfo
-{
-    "identity_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-    "alias": "",
-    "num_pending_channels": 0,
-    "num_active_channels": 2,
-    "num_peers": 1,
-    "block_height": 1256780,
-    "block_hash": "00000000e1b4c3539106670d90e5c6cc02416cff67c58cf65a31aa69024aaa9d",
-    "synced_to_chain": true,
-    "testnet": true,
-    "chains": [
-	"litecoin",
-	"bitcoin"
-    ]
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
-{
-    "balance": "83991564"
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "10000000"
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons listpeers
-{
-    "peers": [
-	{
-	    "pub_key": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "peer_id": 1,
-	    "address": "127.0.0.1:37576",
-	    "bytes_sent": "290569",
-	    "bytes_recv": "291693",
-	    "sat_sent": "1000",
-	    "sat_recv": "0",
-	    "inbound": false,
-	    "ping_time": "304"
-	}
-    ]
-}
-$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
-{
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "15990312",
-	    "remote_balance": "1000",
-	    "commit_fee": "8688",
-	    "commit_weight": "724",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "1000",
-	    "total_satoshis_received": "0",
-	    "num_updates": "30",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "0",
-	    "remote_balance": "9963800",
-	    "commit_fee": "36200",
-	    "commit_weight": "552",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
-}
 $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=5000 --ticker=LTC
 {
-    "r_hash": "ff8492a7c4a58a5ead0ec323ba6602f3fa20cd18967796c8326e0076c8a4d880",
-    "pay_req": "lntl50u1pdywka8pp5l7zf9f7y5k99atgwcv3m5esz70azpngcjemedjpjdcq8dj9ymzqqdqqcqzysqakr7lhcnd5kqvvz4j838u2n7f59863aps39ul0zwqwgq9wglwm4r7jpexu4283xfh84lycaxupcv82g75pqmvlsf5cgfysdjfklzysqtqzfae"
+        "r_hash": "b0ec9ed78d4976082adde610a7afb2bb3900646a57226269d77fa1b4444d6cab",
+        "pay_req": "lntl50u1pds79v0pp5krkfa4udf9mqs2kaucg20tajhvusqer22u3xy6wh07smg3zddj4sdqqcqzjqrx292nmh94e6f0fukvs0v00hn6mflrak0za0xcvvjt3jzu8gt3ty6t4xuvvw7gv8vz72kdpnpdvashj3wkrgfmh6knw0u78m5ds6k9spwxpzdz"
 }
 ```
 
 Exchange B pays `5000 Litoshi` using encoded payment request
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
+$ lncli --rpcserver=localhost:10002 --no-macaroons sendpayment --pay_req=lntl50u1pds79v0pp5krkfa4udf9mqs2kaucg20tajhvusqer22u3xy6wh07smg3zddj4sdqqcqzjqrx292nmh94e6f0fukvs0v00hn6mflrak0za0xcvvjt3jzu8gt3ty6t4xuvvw7gv8vz72kdpnpdvashj3wkrgfmh6knw0u78m5ds6k9spwxpzdz
 {
-    "identity_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-    "alias": "",
-    "num_pending_channels": 0,
-    "num_active_channels": 2,
-    "num_peers": 1,
-    "block_height": 1256780,
-    "block_hash": "00000000e1b4c3539106670d90e5c6cc02416cff67c58cf65a31aa69024aaa9d",
-    "synced_to_chain": true,
-    "testnet": true,
-    "chains": [
-	"litecoin",
-	"bitcoin"
-    ]
+        "payment_error": "",
+        "payment_preimage": "4e354ce403880af008c601b1dbf3d18a0555e7d72909ef99e7134647f57119f3",
+        "payment_route": {
+                "total_time_lock": 1319617,
+                "total_amt": 5000,
+                "hops": [
+                        {
+                                "chan_id": 1450271230199529472,
+                                "chan_capacity": 16000000,
+                                "amt_to_forward": 5000,
+                                "expiry": 1319617
+                        }
+                ]
+        }
 }
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
-{
-    "balance": "130000000"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "989964850"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
-{
-    "peers": [
-	{
-	    "pub_key": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "peer_id": 1,
-	    "address": "127.0.0.1:10011",
-	    "bytes_sent": "291719",
-	    "bytes_recv": "290595",
-	    "sat_sent": "0",
-	    "sat_recv": "1000",
-	    "inbound": true,
-	    "ping_time": "267"
-	}
-    ]
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
-{
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "1000",
-	    "remote_balance": "15990312",
-	    "commit_fee": "8688",
-	    "commit_weight": "724",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "1000",
-	    "num_updates": "30",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "9963800",
-	    "remote_balance": "0",
-	    "commit_fee": "36200",
-	    "commit_weight": "600",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons sendpayment --pay_req=lntl50u1pdywka8pp5l7zf9f7y5k99atgwcv3m5esz70azpngcjemedjpjdcq8dj9ymzqqdqqcqzysqakr7lhcnd5kqvvz4j838u2n7f59863aps39ul0zwqwgq9wglwm4r7jpexu4283xfh84lycaxupcv82g75pqmvlsf5cgfysdjfklzysqtqzfae
-[lncli] rpc error: code = Unknown desc = unknown network
 ```
+
+#### Exchange A's Channel Status Post Payment
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
+{
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "15896312",
+                        "remote_balance": "95000",
+                        "commit_fee": "8688",
+                        "commit_weight": "724",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "100000",
+                        "total_satoshis_received": "5000",
+                        "num_updates": "4",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                        "chan_id": "649885039294873600",
+                        "capacity": "10000000",
+                        "local_balance": "4963800",
+                        "remote_balance": "5000000",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
+}
+```
+[ [index](/README.md), [previous](/LIGHTNING-03-channels.md), [next](/LIGHTNING-05-swap.md) ]

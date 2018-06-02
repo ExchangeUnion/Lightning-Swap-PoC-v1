@@ -1,13 +1,16 @@
+[ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]
+
 # Lightning
-[Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) is used to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
+This guide follows [Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.  
 
 ## Install Lightning Dependencies
-Download latest package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local`
+Download latest (`Go`) package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
+Alternativly you can use apt-get
 ```shell
-$ sudo tar -C /usr/local -xzf go1.9.2.linux-amd64.tar.gz
+$ sudo apt-get install golang-1.10-go
 ```
 
-Add the following lines to the end of `$HOME/.bashrc`
+Add the following lines to the end of `$HOME/.bashrc` and source the file 
 ```shell
 # add Go paths
 export GOPATH=$HOME/go
@@ -21,34 +24,18 @@ $ go get -u github.com/Masterminds/glide
 
 ## Build Lightning Daemon
 
-#### Official `lnd`
-Build and install official `lnd` daemon
-```shell
-$ git clone https://github.com/lightningnetwork/lnd $GOPATH/src/github.com/lightningnetwork/lnd
-$ cd $GOPATH/src/github.com/lightningnetwork/lnd
-$ glide install
-$ go install . ./cmd/...
-```
-
-However official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889`
-```shell
-$ lnd --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
-loadConfig: Currently both Bitcoin and Litecoin cannot be active together
-```
+Since the official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889` we will use instead an xchain-swap enabled experimental `lnd` daemon. 
 
 #### Cross-chain swap enabled `lnd`
 To build and install xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
 ```shell
-$ git clone -b swapz https://github.com/cfromknecht/lnd.git $GOPATH/src/github.com/lightningnetwork/lnd
+$ git clone -b swapz https://github.com/ExchangeUnion/lnd.git $GOPATH/src/github.com/lightningnetwork/lnd
 $ cd $GOPATH/src/github.com/lightningnetwork/lnd
 $ glide install
-$ go install . ./cmd/...
 ```
-
-### Tests
-To check lnd was installed properly run the following command:
+Finally we can build
 ```shell
-$ go install; go test -v -p 1 $(go list ./... | grep -v  '/vendor/')
+$ go install . ./cmd/...
 ```
 
 #### Bitcoin full node implementation `btcd`
@@ -75,29 +62,27 @@ $ go install . ./cmd/...
 Running the following command will create `rpc.cert`  
 Bitcoin testnet blockchain is downloaded to `$HOME/.btcd` by default
 ```shell
-$ btcd --testnet --txindex --rpcuser=kek --rpcpass=kek
+$ btcd --testnet --txindex 
 ```
 
 Sync progress may be tracked as follows
 ```shell
-$ btcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
+$ btcctl --testnet getinfo
 ```
 
 #### for Litecoin
 Running the following command will create `rpc.cert`  
 Litecoin testnet blockchain is downloaded to `$HOME/.ltcd` by default
 ```shell
-$ ltcd --testnet --txindex --rpcuser=kek --rpcpass=kek
+$ ltcd --testnet --txindex 
 ```
 
 Sync progress may be tracked as follows
 ```shell
-$ ltcctl --testnet --rpcuser=kek --rpcpass=kek getinfo
+$ ltcctl --testnet  getinfo
 ```
 
-## Running Lightning Daemon
-After testnet sync is done, following command can be use to launch `lnd` for testing  
-Lightning data is stored in `$HOME/.lnd` by default
-```shell
-$ lnd --debuglevel=debug --bitcoin.active --bitcoin.testnet --bitcoin.rpcuser=kek --bitcoin.rpcpass=kek --litecoin.active --litecoin.testnet --litecoin.rpcuser=kek --litecoin.rpcpass=kek
-```
+## Running Lightning Daemon(s)
+Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchane-B
+
+[ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]

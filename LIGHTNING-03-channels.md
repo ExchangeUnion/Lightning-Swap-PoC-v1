@@ -1,11 +1,13 @@
+[ [index](/README.md), [previous](/LIGHTNING-02-connect.md), [next](/LIGHTNING-04-payment.md) ]
+
 # Lightning Payment Channels
 
 ### Setup
 We continue to use the `identity_pubkey`s of Exchange A and Exchange B which were set up [here](LIGHTNING-01-peers.md)
 
 ```
-$ X_A_ID_PUBKEY=026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7
-$ X_B_ID_PUBKEY=0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc
+$ X_A_ID_PUBKEY=026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31
+$ X_B_ID_PUBKEY=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f
 ```
 
 ### Exchange A opens 0.16 BTC payment channel to Exchange B
@@ -23,11 +25,11 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_I
 [lncli] rpc error: code = Unknown desc = funding amount is too large, the max channel size is: 0.16777216 BTC
 ```
 
-Exchange A opens `0.16 BTC` channel to Exchange B with the following [BTC funding transaction](https://www.blocktrail.com/tBTC/tx/1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077)
+Exchange A opens `0.16 BTC` channel to Exchange B with the following [BTC funding transaction](https://www.blocktrail.com/tBTC/tx/1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b)
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=16000000 --ticker=BTC
 {
-    "funding_txid": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077"
+        "funding_txid": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b"
 }
 
 ```
@@ -39,25 +41,25 @@ Once the channel is opened, Exchange A lists the `Bitcoin` payment channel as fo
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "15991312",
-	    "remote_balance": "0",
-	    "commit_fee": "8688",
-	    "commit_weight": "600",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "15991312",
+                        "remote_balance": "0",
+                        "commit_fee": "8688",
+                        "commit_weight": "600",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
 
@@ -65,25 +67,25 @@ Exchange B lists the `Bitcoin` payment channel as follows
 ```
 $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "0",
-	    "remote_balance": "15991312",
-	    "commit_fee": "8688",
-	    "commit_weight": "552",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "0",
+                        "remote_balance": "15991312",
+                        "commit_fee": "8688",
+                        "commit_weight": "552",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
 
@@ -91,11 +93,11 @@ Exchange A's `Bitcoin` balance decreased due to the committed amount in payment 
 ```
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
 {
-    "balance": "83991564"
+        "balance": "16491564"
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 {
-    "balance": "10000000"
+        "balance": "1000000000"
 }
 ```
 
@@ -120,81 +122,107 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_I
 
 
 
-### Exchange B opens 0.1 LTC payment channel to Exchange A
-Check open payment channels for Exchange B (only BTC channel to Exchange A exists)
+### Exchange A opens 0.1 LTC payment channel to Exchange B and pushes 0.05 LTC to exchange B
+Check open payment channels for Exchange A (only BTC channel to Exchange B exists)
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
+$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "0",
-	    "remote_balance": "15991312",
-	    "commit_fee": "8688",
-	    "commit_weight": "552",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "15991312",
+                        "remote_balance": "0",
+                        "commit_fee": "8688",
+                        "commit_weight": "600",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
 
-Exchange B opens `0.1 LTC` channel to Exchange A with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4)
+Exchange A opens `0.1 LTC` channel to Exchange B with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7)
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons openchannel --node_key=$X_A_ID_PUBKEY --local_amt=10000000 --ticker=LTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=10000000 --ticker=LTC
 {
-    "funding_txid": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4"
+        "funding_txid": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7"
 }
 ```
 
-Exchange B lists the `Litecoin` payment channel as follows
+Until confirmed Exchange B lists the new channel as pending channel.
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons pendingchannels --ticker=LTC
+{
+        "total_limbo_balance": "0",
+        "pending_open_channels": [
+                {
+                        "channel": {
+                                "remote_node_pub": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                                "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                                "capacity": "10000000",
+                                "local_balance": "5000000",
+                                "remote_balance": "4963800"
+                        },
+                        "confirmation_height": 0,
+                        "blocks_till_open": 0,
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000"
+                }
+        ],
+        "pending_closing_channels": [],
+        "pending_force_closing_channels": []
+}
+```
+
+Once confirmed, Exchange B lists the `Litecoin` payment channel as follows
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "0",
-	    "remote_balance": "15991312",
-	    "commit_fee": "8688",
-	    "commit_weight": "552",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "026a2f91860f43b03aff44246652a464e68a678251d6d6e0f24a8c4398b8333aa7",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "9963800",
-	    "remote_balance": "0",
-	    "commit_fee": "36200",
-	    "commit_weight": "600",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "0",
+                        "remote_balance": "15991312",
+                        "commit_fee": "8688",
+                        "commit_weight": "552",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31",
+                        "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                        "chan_id": "0",
+                        "capacity": "10000000",
+                        "local_balance": "5000000",
+                        "remote_balance": "4963800",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
 
@@ -202,124 +230,101 @@ Exchange A lists the `Litecoin` payment channel as follows
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
-    "channels": [
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "1051ea63b1928714c8e319eeab0abb2fb639ea7c007315f26383132c500fe077:0",
-	    "chan_id": "1381475887161802752",
-	    "capacity": "16000000",
-	    "local_balance": "15991312",
-	    "remote_balance": "0",
-	    "commit_fee": "8688",
-	    "commit_weight": "600",
-	    "fee_per_kw": "12000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	},
-	{
-	    "active": true,
-	    "remote_pubkey": "0248a05db7c3996df2699fca9a9a1f843c723b50a6178e805416150b199b5c44bc",
-	    "channel_point": "70b9250e7ebf4a069823d884d1fb7d23fe4a02e27f96a6905a6857724bf3f1f4:0",
-	    "chan_id": "333714973170008064",
-	    "capacity": "10000000",
-	    "local_balance": "0",
-	    "remote_balance": "9963800",
-	    "commit_fee": "36200",
-	    "commit_weight": "552",
-	    "fee_per_kw": "50000",
-	    "unsettled_balance": "0",
-	    "total_satoshis_sent": "0",
-	    "total_satoshis_received": "0",
-	    "num_updates": "0",
-	    "pending_htlcs": []
-	}
-    ]
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b:0",
+                        "chan_id": "1450271230199529472",
+                        "capacity": "16000000",
+                        "local_balance": "15991312",
+                        "remote_balance": "0",
+                        "commit_fee": "8688",
+                        "commit_weight": "600",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f",
+                        "channel_point": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7:0",
+                        "chan_id": "649885039294873600",
+                        "capacity": "10000000",
+                        "local_balance": "4963800",
+                        "remote_balance": "5000000",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
 }
 ```
-
-NOTE: Exchange B's `Litecoin` balance is locked until funding transaction is confirmed
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
-{
-    "balance": "130000000"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "0"
-}
-```
-
-Exchange B's `Litecoin` balance after funding transaction is confirmed
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=BTC
-{
-    "balance": "130000000"
-}
-$ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
-{
-    "balance": "989964850"
-}
-```
-
 
 ### Checking Swap Routes
+Note that until the funding transaction for both channels have 6 confirmations, `queryswaproutes` will return `[lncli] rpc error: code = Unknown desc = unable to find a path to destination` even though the channels may appear active in `listchannels`.
+
 Exchange A has the following swap routes to Exchange B
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 {
-    "routes": [
-	{
-	    "total_time_lock": 304124,
-	    "total_fees": "0",
-	    "total_amt": "100000",
-	    "hops": [
-		{
-		    "chan_id": "333714973170008064",
-		    "chan_capacity": "10000000",
-		    "amt_to_forward": "100000",
-		    "fee": "0",
-		    "expiry": 303548
-		},
-		{
-		    "chan_id": "1381475887161802752",
-		    "chan_capacity": "16000000",
-		    "amt_to_forward": "1000",
-		    "fee": "0",
-		    "expiry": 1256476
-		}
-	    ]
-	}
-    ]
+        "routes": [
+                {
+                        "total_time_lock": 591679,
+                        "total_fees": "0",
+                        "total_amt": "100000",
+                        "hops": [
+                                {
+                                        "chan_id": "649885039294873600",
+                                        "chan_capacity": "10000000",
+                                        "amt_to_forward": "100000",
+                                        "fee": "0",
+                                        "expiry": 591103
+                                },
+                                {
+                                        "chan_id": "1450271230199529472",
+                                        "chan_capacity": "16000000",
+                                        "amt_to_forward": "1000",
+                                        "fee": "0",
+                                        "expiry": 1319040
+                                }
+                        ]
+                }
+        ]
 }
 $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 {
-    "routes": [
-	{
-	    "total_time_lock": 1256615,
-	    "total_fees": "0",
-	    "total_amt": "10",
-	    "hops": [
-		{
-		    "chan_id": "1381475887161802752",
-		    "chan_capacity": "16000000",
-		    "amt_to_forward": "10",
-		    "fee": "0",
-		    "expiry": 1256471
-		},
-		{
-		    "chan_id": "333714973170008064",
-		    "chan_capacity": "10000000",
-		    "amt_to_forward": "1000",
-		    "fee": "0",
-		    "expiry": 303521
-		}
-	    ]
-	}
-    ]
+        "routes": [
+                {
+                        "total_time_lock": 1319177,
+                        "total_fees": "0",
+                        "total_amt": "10",
+                        "hops": [
+                                {
+                                        "chan_id": "1450271230199529472",
+                                        "chan_capacity": "16000000",
+                                        "amt_to_forward": "10",
+                                        "fee": "0",
+                                        "expiry": 1319033
+                                },
+                                {
+                                        "chan_id": "649885039294873600",
+                                        "chan_capacity": "10000000",
+                                        "amt_to_forward": "1000",
+                                        "fee": "0",
+                                        "expiry": 591077
+                                }
+                        ]
+                }
+        ]
 }
 ```
 
@@ -327,56 +332,57 @@ Exchange B has the following swap routes to Exchange A
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
 {
-    "routes": [
-	{
-	    "total_time_lock": 304124,
-	    "total_fees": "0",
-	    "total_amt": "100000",
-	    "hops": [
-		{
-		    "chan_id": "333714973170008064",
-		    "chan_capacity": "10000000",
-		    "amt_to_forward": "100000",
-		    "fee": "0",
-		    "expiry": 303548
-		},
-		{
-		    "chan_id": "1381475887161802752",
-		    "chan_capacity": "16000000",
-		    "amt_to_forward": "1000",
-		    "fee": "0",
-		    "expiry": 1256478
-		}
-	    ]
-	}
-    ]
+        "routes": [
+                {
+                        "total_time_lock": 591680,
+                        "total_fees": "0",
+                        "total_amt": "100000",
+                        "hops": [
+                                {
+                                        "chan_id": "649885039294873600",
+                                        "chan_capacity": "10000000",
+                                        "amt_to_forward": "100000",
+                                        "fee": "0",
+                                        "expiry": 591104
+                                },
+                                {
+                                        "chan_id": "1450271230199529472",
+                                        "chan_capacity": "16000000",
+                                        "amt_to_forward": "1000",
+                                        "fee": "0",
+                                        "expiry": 1319040
+                                }
+                        ]
+                }
+        ]
 }
 $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
 {
-    "routes": [
-	{
-	    "total_time_lock": 1256615,
-	    "total_fees": "0",
-	    "total_amt": "10",
-	    "hops": [
-		{
-		    "chan_id": "1381475887161802752",
-		    "chan_capacity": "16000000",
-		    "amt_to_forward": "10",
-		    "fee": "0",
-		    "expiry": 1256471
-		},
-		{
-		    "chan_id": "333714973170008064",
-		    "chan_capacity": "10000000",
-		    "amt_to_forward": "1000",
-		    "fee": "0",
-		    "expiry": 303521
-		}
-	    ]
-	}
-    ]
+        "routes": [
+                {
+                        "total_time_lock": 1319177,
+                        "total_fees": "0",
+                        "total_amt": "10",
+                        "hops": [
+                                {
+                                        "chan_id": "1450271230199529472",
+                                        "chan_capacity": "16000000",
+                                        "amt_to_forward": "10",
+                                        "fee": "0",
+                                        "expiry": 1319033
+                                },
+                                {
+                                        "chan_id": "649885039294873600",
+                                        "chan_capacity": "10000000",
+                                        "amt_to_forward": "1000",
+                                        "fee": "0",
+                                        "expiry": 591077
+                                }
+                        ]
+                }
+        ]
 }
 ```
 
-Note that until the funding transaction for both channels have 6 confirmations, `queryswaproutes` will return `[lncli] rpc error: code = Unknown desc = unable to find a path to destination` even though the channels may appear active in `listchannels`.
+[ [index](/README.md), [previous](/LIGHTNING-02-connect.md), [next](/LIGHTNING-04-payment.md) ]
+
