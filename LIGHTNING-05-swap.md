@@ -83,7 +83,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 Lets see if there is a route to support the swap
 
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f --in_amt=100000 --in_ticker=LTC --out_ticker=BTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=100000 --in_ticker=LTC --out_ticker=BTC
 {
         "routes": [
                 {
@@ -121,7 +121,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=100000 --t
 
 Exchange A executes swap - sending BTC accepting LTC
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f --in_amt=100000 --in_ticker=LTC --out_ticker=BTC |lncli --rpcserver=localhost:10001 --no-macaroons sendtoroute --payment_hash 8f2b4ae784731ca1fe4f6165a6db0703b2ae916fd53a0e82645ab71fcb58d617
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=100000 --in_ticker=LTC --out_ticker=BTC |lncli --rpcserver=localhost:10001 --no-macaroons sendtoroute --payment_hash 8f2b4ae784731ca1fe4f6165a6db0703b2ae916fd53a0e82645ab71fcb58d617
 {
         "payment_error": "",
         "payment_preimage": "1c307f5f887ab7f95a66881fbb214f015397642f84d141d150ad7dda4af212f8",
