@@ -151,7 +151,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 
 Exchange A opens `0.1 LTC` channel to Exchange B with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7)
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=10000000 --ticker=LTC
+$ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=10000000 --push_amt=5000000 --ticker=LTC
 {
         "funding_txid": "3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7"
 }
