@@ -101,6 +101,51 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 }
 ```
 
+### checking graph information 
+Before we move on, we should verify that the channel created properly. We should do this with the below command. Output shoul be similar to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty.
+
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
+{
+        "nodes": [
+                {
+                        "last_update": 1528034607,
+                        "pub_key": "034e91992557c6c72be6bab1406797537b2c1a77c31c8efa13eb9745b0cbd5a1a6",
+                        "alias": "034e91992557c6c72be6\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                        "addresses": []
+                },
+                {
+                        "last_update": 1528034607,
+                        "pub_key": "03b0ddc0d7e3e2374356faca4935651b2d8f02130b5098f1852b776787232b352b",
+                        "alias": "03b0ddc0d7e3e2374356\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                        "addresses": []
+                }
+        ],
+        "edges": [
+                {
+                        "channel_id": "1453156348713238529",
+                        "chan_point": "dca09f2b3abab3f6b2d2326df52986ec4a277763e5b01fc86fb139cfad3bfb2e:1",
+                        "last_update": 1528034607,
+                        "node1_pub": "034e91992557c6c72be6bab1406797537b2c1a77c31c8efa13eb9745b0cbd5a1a6",
+                        "node2_pub": "03b0ddc0d7e3e2374356faca4935651b2d8f02130b5098f1852b776787232b352b",
+                        "capacity": "3000000",
+                        "node1_policy": {
+                                "time_lock_delta": 144,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1000",
+                                "fee_rate_milli_msat": "1"
+                        },
+                        "node2_policy": {
+                                "time_lock_delta": 144,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1000",
+                                "fee_rate_milli_msat": "1"
+                        }
+                }
+        ]
+}
+```
+
 
 ### Checking Swap Routes
 Exchange A has no swap route to Exchange B yet
@@ -264,6 +309,71 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
                         "total_satoshis_received": "0",
                         "num_updates": "0",
                         "pending_htlcs": []
+                }
+        ]
+}
+```
+
+### checking graph information again
+Before we check swap route lets verify that the nodes see correct pictures of the network (graph). you should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. Swap and route will not work if the infomation is missing. Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel.
+
+```shell
+$ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
+{
+        "nodes": [
+                {
+                        "last_update": 1528035453,
+                        "pub_key": "034e91992557c6c72be6bab1406797537b2c1a77c31c8efa13eb9745b0cbd5a1a6",
+                        "alias": "034e91992557c6c72be6\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                        "addresses": []
+                },
+                {
+                        "last_update": 1528035453,
+                        "pub_key": "03b0ddc0d7e3e2374356faca4935651b2d8f02130b5098f1852b776787232b352b",
+                        "alias": "03b0ddc0d7e3e2374356\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+                        "addresses": []
+                }
+        ],
+        "edges": [
+                {
+                        "channel_id": "659039573107736576",
+                        "chan_point": "702e326f04b78ccad06f7ab9d31088160f8b64a6fe4e4e91f80def2b9508eaa1:0",
+                        "last_update": 1528035453,
+                        "node1_pub": "034e91992557c6c72be6bab1406797537b2c1a77c31c8efa13eb9745b0cbd5a1a6",
+                        "node2_pub": "03b0ddc0d7e3e2374356faca4935651b2d8f02130b5098f1852b776787232b352b",
+                        "capacity": "10000000",
+                        "node1_policy": {
+                                "time_lock_delta": 576,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1",
+                                "fee_rate_milli_msat": "1"
+                        },
+                        "node2_policy": {
+                                "time_lock_delta": 576,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1",
+                                "fee_rate_milli_msat": "1"
+                        }
+                },
+                {
+                        "channel_id": "1453156348713238529",
+                        "chan_point": "dca09f2b3abab3f6b2d2326df52986ec4a277763e5b01fc86fb139cfad3bfb2e:1",
+                        "last_update": 1528034607,
+                        "node1_pub": "034e91992557c6c72be6bab1406797537b2c1a77c31c8efa13eb9745b0cbd5a1a6",
+                        "node2_pub": "03b0ddc0d7e3e2374356faca4935651b2d8f02130b5098f1852b776787232b352b",
+                        "capacity": "3000000",
+                        "node1_policy": {
+                                "time_lock_delta": 144,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1000",
+                                "fee_rate_milli_msat": "1"
+                        },
+                        "node2_policy": {
+                                "time_lock_delta": 144,
+                                "min_htlc": "0",
+                                "fee_base_msat": "1000",
+                                "fee_rate_milli_msat": "1"
+                        }
                 }
         ]
 }
