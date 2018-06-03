@@ -6,8 +6,8 @@
 We continue to use the `identity_pubkey`s of Exchange A and Exchange B which were set up [here](LIGHTNING-01-peers.md)
 
 ```
-$ X_A_ID_PUBKEY=026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31
-$ X_B_ID_PUBKEY=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f
+$ X_A_ID_PUBKEY=`lncli --rpcserver=localhost:10001 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
+$ X_B_ID_PUBKEY=`lncli --rpcserver=localhost:10002 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
 ```
 
 ### Exchange A opens 0.16 BTC payment channel to Exchange B
