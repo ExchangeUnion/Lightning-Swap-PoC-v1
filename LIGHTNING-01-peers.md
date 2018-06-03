@@ -12,7 +12,7 @@ Note that --debughtlc is currently mandatory for the success of a swap
 ```shell
 $ mkdir -p $HOME/exchange-a
 $ cd $HOME/exchange-a
-$ lnd --noencryptwallet --debughtlc --rpcport=10001 --peerport=10011 --restport=8001 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
+$ lnd --noencryptwallet --debughtlc --rpcport=10001 --peerport=10011 --restport=8001 --datadir=data --logdir=logs --debuglevel=debug --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
 ```
 Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
@@ -86,7 +86,7 @@ Create a separate directory and launch `lnd` for Exchange B that uses both `Bitc
 ```shell
 $ mkdir -p $HOME/exchange-b
 $ cd $HOME/exchange-b
-$ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=8002 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
+$ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=8002 --datadir=data --logdir=logs --debuglevel=debug --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
 ```
 Give `lnd` the time it needs to sync with `btcd` and `ltcd`
 
