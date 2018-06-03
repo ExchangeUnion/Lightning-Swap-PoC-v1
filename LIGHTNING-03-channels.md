@@ -102,7 +102,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 ```
 
 ### checking graph information 
-Before we move on, we should verify that the channel created properly. We should do this with the below command. Output shoul be similar to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty.
+Before we move on, we should verify that the channel created properly. We should do this with the below command. Output should be *similar* to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty. Note that this screen was done in a different session so you will not get exact numbers and strings. Focus on structre and make sure `time_lock_delta` is 144.
 
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
@@ -315,7 +315,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 ```
 
 ### checking graph information again
-Before we check swap route lets verify that the nodes see correct pictures of the network (graph). you should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. Swap and route will not work if the infomation is missing. Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel.
+Before we check swap route lets verify that the nodes see correct pictures of the network (graph). you should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. Swap and route will not work if the infomation is missing. Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel. Note that this screen was done in a different session so you will not get exact numbers and strings. 
 
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
@@ -380,7 +380,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
 ```
 
 ### Checking Swap Routes
-Note that until the funding transaction for both channels have 6 confirmations, `queryswaproutes` will return `[lncli] rpc error: code = Unknown desc = unable to find a path to destination` even though the channels may appear active in `listchannels`.
+
 
 Exchange A has the following swap routes to Exchange B
 ```shell
