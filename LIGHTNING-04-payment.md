@@ -31,16 +31,16 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 ```
 
 ## Bitcoin Payment
-Exchange B creates invoice for `500000 Satoshi`
+Exchange B creates invoice for `100000 Satoshi`
 ```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=500000 --ticker=BTC
+$ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=100000 --ticker=BTC
 {{
         "r_hash": "595577b4fdc759a0b26415e6829efd2e020e0fec6d9913e78d23af119499e842",
         "pay_req": "lntb1m1pds7ylnpp5t92h0d8acav6pvnyzhng98ha9cpqurlvdkv38eudywh3r9yeappqdqqcqzys7pjfwckh9mkq6t5jaly26yxk33ljf635skd2r32uek8sxgw4lryh05s427zqfhzxpmdqmve69dyvgxkpe00fg0ucv38frtnrv5tzs7gqex39u3"
 }
 ```
 
-Exchange A pays `500000 Satoshi` using encoded payment request
+Exchange A pays `100000 Satoshi` using encoded payment request
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons sendpayment --pay_req=lntb1m1pds7ylnpp5t92h0d8acav6pvnyzhng98ha9cpqurlvdkv38eudywh3r9yeappqdqqcqzys7pjfwckh9mkq6t5jaly26yxk33ljf635skd2r32uek8sxgw4lryh05s427zqfhzxpmdqmve69dyvgxkpe00fg0ucv38frtnrv5tzs7gqex39u3
 {
