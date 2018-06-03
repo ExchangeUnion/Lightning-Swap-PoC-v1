@@ -58,7 +58,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
 ## Establishing Connection
 By using Exchange A's `identity_pubkey`, host and port number `peerport`, Exchange B establish connection using the command below
 ```shell
-$ X_A_ID_PUBKEY=026374581ff7974975ffce20e65a04876ba33405502d1a13dc73c9a702b61aef31
+$ X_A_ID_PUBKEY=`lncli --rpcserver=localhost:10001 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
 $ HOST=127.0.0.1
 # peerport for Exchange A was set to 10011 in LIGHTNING-01-peers.md
 $ PEER_PORT=10011
