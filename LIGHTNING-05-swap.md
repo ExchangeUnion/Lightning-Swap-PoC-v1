@@ -2,6 +2,12 @@
 
 # Lightning Cross-Chain Swap
 
+## LND processes restart
+```diff
+-Before we execute the atomic swip we need to restart again the lnd processes of exchange A and B. 
+-You can use control+c at the terminal to do that. 
+```
+
 ## Finding a Swap Route
 Exchange A checks queries a swap route to exchange `1000 Satoshi` for `0.001 LTC` with Exchange B (1:100 is fixed for now)
 Exchange A also creates an invoice of `100000 Litoshi = 0.001 LTC` to be paid by itself to execute the swap
