@@ -4,7 +4,7 @@
 This guide can be used to perform atomic swap payment between two exchanges (A, B) running Lightning network deamon. The exchanges are connected to the Bitecoin and Litecoin networks using btcd and ltcd. The guide follows [Lightning Installation Guide](https://github.com/lightningnetwork/lnd/blob/master/docs/INSTALL.md) to build the dependencies (`Go`), currency daemons (`btcd` and `ltcd`) and the actual `lnd` daemon.   
 
 # Terminal setting
-It is recommanded to open 5 terminals to be used with this PoC. Each of the following component should use its own ternmial: btcd, ltcd, lnd (exchange A), lnd (exchane B), lncli (both exchanges). 
+It is recommanded to open 5 terminals to be used with this PoC. Each of the following component should use its own ternmial: btcd, ltcd, lnd (exchange A), lnd (exchange B), lncli (both exchanges). 
 
 ## Install Lightning Dependencies
 Download latest (`Go`) package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
@@ -86,6 +86,6 @@ $ ltcctl --testnet  getinfo --rpcuser=xu --rpcpass=xu
 ```
 
 ## Running Lightning Daemon(s)
-Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchane-B
+Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchange-B
 
 [ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]
