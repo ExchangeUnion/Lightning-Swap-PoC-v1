@@ -2,7 +2,7 @@
 
 # Lightning Cross-Chain Swap
 
-### Finding a Swap Route
+## Finding a Swap Route
 Exchange A checks queries a swap route to exchange `1000 Satoshi` for `0.001 LTC` with Exchange B (1:100 is fixed for now)
 Exchange A also creates an invoice of `100000 Litoshi = 0.001 LTC` to be paid by itself to execute the swap
 ```shell
@@ -120,6 +120,9 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=100000 --t
 ```
 
 Exchange A executes swap - sending BTC accepting LTC
+```diff
+-Make sure you use the `r_hash` provided by the above create invoice
+```
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=100000 --in_ticker=LTC --out_ticker=BTC |lncli --rpcserver=localhost:10001 --no-macaroons sendtoroute --payment_hash 8f2b4ae784731ca1fe4f6165a6db0703b2ae916fd53a0e82645ab71fcb58d617
 {
