@@ -112,7 +112,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=LT
 
 ## Use addresses to fund Exchnage A wallets
 
-Send some BTC (B0.325 is great) and some LTC (10 is great) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet)). Balances should appear in wallet once BTC/LTC transaction area approved by minders.
+Send some BTC (B0.2 or more is great) and some LTC (10 is great) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet)). Balances should appear in wallet once BTC/LTC transaction area approved by minders.
 
 ## balance after funding the wallets
 
