@@ -116,7 +116,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_I
         ]
 }
 ```
-Create an invoice to accept the 100,000 LTC
+Create an invoice to accept the `100000 Litoshi`
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=100000 --ticker=LTC
 {
@@ -154,7 +154,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_I
         }
 }
 ```
-Lets see the impact in the channels (check `local_balance` and `remote_balance`)
+Let's see the impact in the channels (check `local_balance` and `remote_balance`)
 ```shell
 $  lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
@@ -196,7 +196,7 @@ $  lncli --rpcserver=localhost:10001 --no-macaroons listchannels
         ]
 }
 ```
-Create an invoice to accept 300  (BTC)
+Create an invoice to accept `300 Satoshi`
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=300 --ticker=BTC
 {
