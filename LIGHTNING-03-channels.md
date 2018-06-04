@@ -39,8 +39,27 @@ The default number of confirmations is 1.
 Until confirmation the pending channel can be seen with the `pendingchannels` command
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons pendingchannels --ticker=BTC
-
-*** add output
+{
+        "total_limbo_balance": "0",
+        "pending_open_channels": [
+                {
+                        "channel": {
+                                "remote_node_pub": "03af3a013b3e546ebf4c39cd5314129d740f928e26365f7de382983976608106bf",
+                                "channel_point": "2610b4464f853b02c6ded664f8d000e1f85affecea68f43337e57cfbe9f9e407:0",
+                                "capacity": "16000000",
+                                "local_balance": "15991312",
+                                "remote_balance": "0"
+                        },
+                        "confirmation_height": 0,
+                        "blocks_till_open": 0,
+                        "commit_fee": "8688",
+                        "commit_weight": "600",
+                        "fee_per_kw": "12000"
+                }
+        ],
+        "pending_closing_channels": [],
+        "pending_force_closing_channels": []
+}
 ```
 
 Once the channel is opened, Exchange A lists the `Bitcoin` payment channel as follows
