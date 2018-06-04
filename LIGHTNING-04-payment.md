@@ -123,7 +123,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=100000 --t
 ### Exchange A pays the invoice
 Exchange A pays `100000 Satoshi` using encoded payment request
 ```shell
-btc_pay_req=`lncli --rpcserver=localhost:10002 --no-macaroons  listinvoices|grep -A 4 '"value": "100000"'|grep payment_request|cut -d '"' -f 4|tail -n 1`
+$ btc_pay_req=`lncli --rpcserver=localhost:10002 --no-macaroons  listinvoices|grep -A 4 '"value": "100000"'|grep payment_request|cut -d '"' -f 4|tail -n 1`
 
 $ echo using payment_request $btc_pay_req
 using payment_request lntb1m1pd32qp7pp5h6qnausgfkduz94j2tjp9xa8llpvn8vrre07lzgtrp3dewqfgugsdqqcqzysdre5fzmufsah5z9wnpp5rkzqxykwphcf58z8sa6gc69jkk6fj0ls3mt6rt3rhsgasdq0mkpccvn0qz85hh0gws05n9qlz3l340732sqp5m7uh2
@@ -266,7 +266,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=5000 --tic
 Exchange B pays `5000 Litoshi` using encoded payment request
 ```shell
 
-ltc_pay_req=`lncli --rpcserver=localhost:10001 --no-macaroons  listinvoices|grep -A 4 '"value": "5000"'|grep payment_request|cut -d '"' -f 4|tail -n 1`
+$ ltc_pay_req=`lncli --rpcserver=localhost:10001 --no-macaroons  listinvoices|grep -A 4 '"value": "5000"'|grep payment_request|cut -d '"' -f 4|tail -n 1`
 
 $ echo using payment_request $ltc_pay_req
 using payment_request lntl50u1pds79v0pp5krkfa4udf9mqs2kaucg20tajhvusqer22u3xy6wh07smg3zddj4sdqqcqzjqrx292nmh94e6f0fukvs0v00hn6mflrak0za0xcvvjt3jzu8gt3ty6t4xuvvw7gv8vz72kdpnpdvashj3wkrgfmh6knw0u78m5ds6k9spwxpzdz
