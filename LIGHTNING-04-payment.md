@@ -15,9 +15,45 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 {
         "balance": "989964850"
 }
-
-
-***** add
+$ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
+{
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "03af3a013b3e546ebf4c39cd5314129d740f928e26365f7de382983976608106bf",
+                        "channel_point": "2610b4464f853b02c6ded664f8d000e1f85affecea68f43337e57cfbe9f9e407:0",
+                        "chan_id": "1453549973873688576",
+                        "capacity": "16000000",
+                        "local_balance": "15991312",
+                        "remote_balance": "0",
+                        "commit_fee": "8688",
+                        "commit_weight": "600",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "03af3a013b3e546ebf4c39cd5314129d740f928e26365f7de382983976608106bf",
+                        "channel_point": "895799da56c1f950668360a5b0c9c668a61386001906b03b8b8235e05dc22cf8:0",
+                        "chan_id": "659368327084310528",
+                        "capacity": "10000000",
+                        "local_balance": "4963800",
+                        "remote_balance": "5000000",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
+}
 ```
 
 ### Exchange B's Balances & Channel Status Pre Payment
@@ -30,7 +66,45 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons walletbalance --ticker=LTC
 {
         "balance": "0"
 }
-*** add
+$ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
+{
+        "channels": [
+                {
+                        "active": true,
+                        "remote_pubkey": "025f2c07cf98f00ffd8c4c3bbf822e1bc7976cf2f5cb2b88a196d54d6a87856d7a",
+                        "channel_point": "2610b4464f853b02c6ded664f8d000e1f85affecea68f43337e57cfbe9f9e407:0",
+                        "chan_id": "1453549973873688576",
+                        "capacity": "16000000",
+                        "local_balance": "0",
+                        "remote_balance": "15991312",
+                        "commit_fee": "8688",
+                        "commit_weight": "552",
+                        "fee_per_kw": "12000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                },
+                {
+                        "active": true,
+                        "remote_pubkey": "025f2c07cf98f00ffd8c4c3bbf822e1bc7976cf2f5cb2b88a196d54d6a87856d7a",
+                        "channel_point": "895799da56c1f950668360a5b0c9c668a61386001906b03b8b8235e05dc22cf8:0",
+                        "chan_id": "659368327084310528",
+                        "capacity": "10000000",
+                        "local_balance": "5000000",
+                        "remote_balance": "4963800",
+                        "commit_fee": "36200",
+                        "commit_weight": "724",
+                        "fee_per_kw": "50000",
+                        "unsettled_balance": "0",
+                        "total_satoshis_sent": "0",
+                        "total_satoshis_received": "0",
+                        "num_updates": "0",
+                        "pending_htlcs": []
+                }
+        ]
+}
 
 ```
 
