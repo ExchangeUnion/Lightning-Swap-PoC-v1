@@ -206,7 +206,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=300 --tick
 ```
 Is there a route?
 ```shell
-$  lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f --in_amt=300 --in_ticker=BTC --out_ticker=LTC
+$  lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=300 --in_ticker=BTC --out_ticker=LTC
 {
         "routes": [
                 {
@@ -234,9 +234,12 @@ $  lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0237c
 }
 ```
 Lets try to swap LTC for BTC
+```diff
+-Make sure you use the `r_hash` provided by the above create invoice
+```
 
 ```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=0237cdf6b03cf17df8676af35b43da3ee0613b888bc5cd26a41064118f1241cc2f --in_amt=300 --in_ticker=BTC --out_ticker=LTC|lncli --rpcserver=localhost:10001 --no-macaroons sendtoroute --payment_hash 65dd55deed719fed4dc2bebac42a6bc113de70b9826d3276c45cf0b78c3716fa
+$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=300 --in_ticker=BTC --out_ticker=LTC|lncli --rpcserver=localhost:10001 --no-macaroons sendtoroute --payment_hash 65dd55deed719fed4dc2bebac42a6bc113de70b9826d3276c45cf0b78c3716fa
 {
         "payment_error": "",
         "payment_preimage": "3b6610d7ead10d074b1f7da9a378d493fea6630e019837a66addf84f1be3075f",
