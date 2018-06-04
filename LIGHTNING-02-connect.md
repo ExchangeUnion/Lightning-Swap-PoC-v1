@@ -6,9 +6,9 @@ In this step we connect Exchange A and Exchange B at network level so they becom
 ## LND processes restart
 ```diff
 -Before we set the connection we need to restart the lnd processes of exchange A and B. 
-You can use control+c at the terminal to do that. 
-You may get a lot of warnings `CRTR: Unable to get block hash for block at height`. These can be ignored. 
-If stopping takes long time you can kill the lnd processes using the command `killall lnd` at the cli terminal.
+-You can use control+c at the terminal to do that. 
+-You may get a lot of warnings `CRTR: Unable to get block hash for block at height`. These can be ignored. 
+-If stopping takes long time you can kill the lnd processes using the command `killall lnd` at the cli terminal.
 ```
 
 Once the lnd processes stopped, please restart them (same commands we used before).
