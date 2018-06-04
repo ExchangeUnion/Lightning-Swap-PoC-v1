@@ -39,7 +39,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listpeers
 }
 ```
 
-#### Exchange B pre-connection
+### Exchange B pre-connection
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 {
@@ -65,7 +65,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
 
 
 ## Establishing Connection
-By using Exchange A's `identity_pubkey`, host and port number `peerport`, Exchange B establish connection using the command below
+By using Exchange A's `identity_pubkey`, host and port number, Exchange B establish connection using the command below
 ```shell
 $ X_A_ID_PUBKEY=`lncli --rpcserver=localhost:10001 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
 
@@ -75,7 +75,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons connect $X_A_ID_PUBKEY@127.0.
 }
 ```
 
-#### Exchange A post-connection
+### Exchange A post-connection
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listpeers
 {
@@ -95,7 +95,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listpeers
 }
 ```
 
-#### Exchange B post-connection
+### Exchange B post-connection
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
 {
@@ -114,5 +114,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
         ]
 }
 ```
+
+We are no ready to set up payment channels. 
 
 [ [index](/README.md), [previous](/LIGHTNING-01-peers.md), [next](/LIGHTNING-03-channels.md) ]
