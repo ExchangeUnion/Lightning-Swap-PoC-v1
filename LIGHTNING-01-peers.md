@@ -1,6 +1,6 @@
 [ [index](/README.md), [previous](/LIGHTNING-00-install.md), [next](/LIGHTNING-02-connect.md) ]
 
-# Lightning Peer Setup
+# Lightning nodes Setup
 
 Once we installed all components and we have Litecoin and Bitcoin synced with their blockchains we can set up `lnd` processes. We are going to setup two processes that mimic two exchanges. We suggest that you run each lnd process in its own terminal and use another terminal with lncli. It will take the `lnd` processes some time to sync with the `btcd` and `ltcd` deamons. It is OK to setup the two `lnd`s in parallel.
 
@@ -28,7 +28,7 @@ $ mkdir -p $HOME/exchange-b
 $ cd $HOME/exchange-b
 $ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=8002 --datadir=data --logdir=logs --debuglevel=info --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
 ```
-## Wait untel Exchange A and Exchange B sync
+## Wait until Exchange A and Exchange B sync
 
 Give the two `lnd`s the time they need to sync with `btcd` and `ltcd`
 
@@ -80,7 +80,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons getinfo
 }
 ```
 
-# Fund Exchange-A by using faucets 
+# Fund Exchange A by using faucets 
 
 ## balance after creating
 
@@ -114,6 +114,8 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=LT
 
 Send some BTC (B0.325 is great) and some LTC (10 is great) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet)). Balances should appear in wallet once BTC/LTC transaction area approved by minders.
 
+## balance after funding the wallets
+
 Query Exchange A wallet balances for both `Bitcoin` and `Litecoin` after funding
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
@@ -125,6 +127,8 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
         "balance": "1000000000"
 }
 ```
+
+
 
 We are now ready with Exchange A wallet. Note that Exchane B has LTC and BTC wallets but these are empty (zero balance). There is no need to fund Exchange B for our PoC. 
 
