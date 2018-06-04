@@ -102,7 +102,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 ```
 
 ### checking graph information 
-Before we move on, we should verify that the channel created properly. We should do this with the below command. Output should be *similar* to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty. Note that this screen was done in a different session so you will not get exact numbers and strings. Focus on structre and make sure `time_lock_delta` is 144.
+Before we move on, we should verify that the channel created properly. We should do this with the below command. Output should be *similar* to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty. Note that this screen was done in a different session so you will not get exact numbers and strings. Focus on structure and make sure `time_lock_delta` is 144.
 
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
