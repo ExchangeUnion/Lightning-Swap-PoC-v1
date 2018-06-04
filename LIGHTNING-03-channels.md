@@ -2,7 +2,7 @@
 
 # Lightning Payment Channels
 
-### Setup
+## Setup
 We continue to use the `identity_pubkey`s of Exchange A and Exchange B which were set up [here](LIGHTNING-01-peers.md)
 
 ```
@@ -10,7 +10,7 @@ $ X_A_ID_PUBKEY=`lncli --rpcserver=localhost:10001 --no-macaroons getinfo|grep i
 $ X_B_ID_PUBKEY=`lncli --rpcserver=localhost:10002 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
 ```
 
-### Exchange A opens 0.16 BTC payment channel to Exchange B
+## Exchange A opens 0.16 BTC payment channel to Exchange B
 Check open payment channels for Exchange A
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
@@ -31,11 +31,17 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_I
 {
         "funding_txid": "1f40907fc1968319cbb57955e06c7b11d4f3b9d413c633c1ca26288b9d2e033b"
 }
-
 ```
 
 Funding transaction must be confirmed before a channel is opened.
 The default number of confirmations is 1.
+
+Until confirmation the pending channel can be seen with the `pendingchannels` command
+```shell
+$ lncli --rpcserver=localhost:10001 --no-macaroons pendingchannels --ticker=BTC
+
+*** add output
+```
 
 Once the channel is opened, Exchange A lists the `Bitcoin` payment channel as follows
 ```shell
@@ -101,8 +107,16 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 }
 ```
 
-### checking graph information 
-Before we move on, we should verify that the channel created properly. We should do this with the below command. Output should be *similar* to the below. If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. Swap and route will not work if the infomation is missing. Make sure that `node1_policy` and `node2_policy` are not empty. Note that this screen was done in a different session so you will not get exact numbers and strings. Focus on structure and make sure `time_lock_delta` is 144.
+## Checking graph information 
+```diff
+-Before we move on, we should verify that the channel created properly. 
+-We should do this with the below command. Output should be *similar* to the below. 
+-If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. 
+-Swap and route will not work if the infomation is missing. 
+-Make sure that `node1_policy` and `node2_policy` are not empty. 
+-Note that this screen was done in a different session so you will not get exact numbers and strings. 
+-While checking Focus on structure and make sure `time_lock_delta` is 144.
+```
 
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
@@ -146,29 +160,8 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
 }
 ```
 
-
-### Checking Swap Routes
-Exchange A has no swap route to Exchange B yet
-```shell
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
-[lncli] rpc error: code = Unknown desc = unable to find a path to destination
-$ lncli --rpcserver=localhost:10001 --no-macaroons queryswaproutes --dest=$X_B_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
-[lncli] rpc error: code = Unknown desc = unable to find a path to destination
-
-```
-
-Exchange B has no swap route to Exchange A yet
-```shell
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=BTC --out_ticker=LTC
-[lncli] rpc error: code = Unknown desc = unable to find a path to destination
-$ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_ID_PUBKEY --in_amt=1000 --in_ticker=LTC --out_ticker=BTC
-[lncli] rpc error: code = Unknown desc = unable to find a path to destination
-```
-
-
-
-### Exchange A opens 0.1 LTC payment channel to Exchange B and pushes 0.05 LTC to exchange B
-Check open payment channels for Exchange A (only BTC channel to Exchange B exists)
+## Exchange A opens 0.1 LTC payment channel to Exchange B and pushes 0.05 LTC to exchange B
+List open payment channels for Exchange A (only BTC channel to Exchange B exists)
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
@@ -202,7 +195,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_I
 }
 ```
 
-Until confirmed Exchange B lists the new channel as pending channel.
+Until confirmed Exchange A and Exchange B  list the new channel as pending channel.
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons pendingchannels --ticker=LTC
 {
@@ -314,9 +307,14 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 }
 ```
 
-### checking graph information again
-Before we check swap route lets verify that the nodes see correct pictures of the network (graph). you should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. Swap and route will not work if the infomation is missing. Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel. Note that this screen was done in a different session so you will not get exact numbers and strings. 
-
+## checking graph information again
+```diff
+-Before we check swap route lets verify that the nodes see correct pictures of the network (graph). 
+-You should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. 
+-Swap and route will not work if the infomation is missing. 
+-Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel. 
+-Note that this screen was done in a different session so you will not get exact numbers and strings. 
+```
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
 {
@@ -379,7 +377,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
 }
 ```
 
-### Checking Swap Routes
+## Checking Swap Routes
 
 
 Exchange A has the following swap routes to Exchange B
