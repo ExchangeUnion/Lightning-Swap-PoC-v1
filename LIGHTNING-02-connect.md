@@ -65,7 +65,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listpeers
 
 
 ## Establishing Connection
-By using Exchange A's `identity_pubkey`, host and port number, Exchange B establish connection using the command below
+By using Exchange A's `identity_pubkey`, host and port number, Exchange B establishes a connection using the following command
 ```shell
 $ X_A_ID_PUBKEY=`lncli --rpcserver=localhost:10001 --no-macaroons getinfo|grep identity_pubkey|cut -d '"' -f 4`
 
