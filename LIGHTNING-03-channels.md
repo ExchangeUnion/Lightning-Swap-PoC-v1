@@ -330,7 +330,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 -Before we check the swap route lets verify that the nodes see correct pictures of the network (graph). 
 -You should see 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. 
 -Swap and route will not work if infomation is missing. 
--Make sure the `time_lock_delta` which should be *144* for the Bitcoin channel and *576* for the Litecoin channel. 
+-Make sure the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel. 
 -Note that this screen was done in a different session so you will not get exactly the same numbers and strings.
 ```
 ```shell
