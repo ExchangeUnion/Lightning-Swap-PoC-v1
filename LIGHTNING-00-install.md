@@ -27,10 +27,10 @@ $ go get -u github.com/Masterminds/glide
 
 ## Build Lightning Daemon
 
-Since the official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889` we will use instead an xchain-swap enabled experimental `lnd` daemon. 
+Since the official `lnd` does not support cross chain swaps as of `lightningnetwork/lnd@6b0f984e3155adf8520d050f9b44f694fe099889`, we will use instead an xchain-swap enabled experimental `lnd` daemon. 
 
 #### Cross-chain swap enabled `lnd`
-To build and install xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
+To build and install the xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
 ```shell
 $ git clone -b swapz https://github.com/ExchangeUnion/lnd.git $GOPATH/src/github.com/lightningnetwork/lnd
 $ cd $GOPATH/src/github.com/lightningnetwork/lnd
@@ -42,7 +42,7 @@ $ go install . ./cmd/...
 ```
 
 #### Bitcoin full node implementation `btcd`
-Build and install `btcd` Bitcoin full node implementation
+Build and install the `btcd` Bitcoin full node implementation
 ```shell
 $ git clone https://github.com/roasbeef/btcd $GOPATH/src/github.com/roasbeef/btcd
 $ cd $GOPATH/src/github.com/roasbeef/btcd
@@ -51,7 +51,7 @@ $ go install . ./cmd/...
 ```
 
 #### Litecoin full node implementation `ltcd`
-Build and install `ltcd` Litecoin full node implementation
+Build and install the `ltcd` Litecoin full node implementation
 ```shell
 $ git clone https://github.com/ltcsuite/ltcd.git $GOPATH/src/github.com/ltcsuite/ltcd
 $ cd $GOPATH/src/github.com/ltcsuite/ltcd
@@ -86,6 +86,6 @@ $ ltcctl --testnet  getinfo --rpcuser=xu --rpcpass=xu
 ```
 
 ## Running Lightning Daemon(s)
-Once testnet sync is done for Litecoin and Bitcoin deamons, we continue to the next section which explain how to setup two lnd processes for Exchange-A and Exchange-B
+Once testnet sync is done for the Bitcoin & Litecoin daemons, we continue to the next section which explains how to setup two lnd processes for Exchange-A and Exchange-B
 
 [ [index](/README.md), [next](/LIGHTNING-01-peers.md) ]
