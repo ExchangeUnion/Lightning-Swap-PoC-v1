@@ -33,10 +33,9 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_I
 }
 ```
 
-Funding transaction must be confirmed before a channel is opened.
-The default number of confirmations is 1.
+The funding transaction must be confirmed before a channel is opened. The default number of confirmations is 1.
 
-Until confirmation the pending channel can be seen with the `pendingchannels` command
+Until confirmed, the pending channels can be seen with the `pendingchannels` command
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons pendingchannels --ticker=BTC
 {
@@ -114,7 +113,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 }
 ```
 
-Exchange A's `Bitcoin` balance decreased due to the committed amount in payment channel
+Exchange A's `Bitcoin` balance decreased due to the committed amount in the payment channel
 ```
 $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=BTC
 {
@@ -128,13 +127,13 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 
 ## Checking graph information 
 ```diff
--Before we move on, we should verify that the channel created properly. 
--We should do this with the below command. Output should be *similar* to the below. 
+-Before we move on, we should verify that the channel was created properly. 
+-We can do this with the command below. The output should be *similar* to the one below. 
 -If you are getting a different output you should drop the channel, restart the lnd processes and recreate the channel. 
--Swap and route will not work if the infomation is missing. 
+-Swap and route creation will not work if infomation is missing. 
 -Make sure that `node1_policy` and `node2_policy` are not empty. 
--Note that this screen was done in a different session so you will not get exact numbers and strings. 
--While checking Focus on structure and make sure `time_lock_delta` is 144.
+-Make sure the structure of the ouput is the same and that `time_lock_delta` is 144.
+-Note that this screen was done in a different session so you will not get exactly the same numbers and strings. 
 ```
 
 ```shell
@@ -179,8 +178,8 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
 }
 ```
 
-## Exchange A opens 0.1 LTC payment channel to Exchange B and pushes 0.05 LTC to exchange B
-List open payment channels for Exchange A (only BTC channel to Exchange B exists)
+## Exchange A opens a 0.1 LTC payment channel to Exchange B and pushes 0.05 LTC to Exchange B
+List open payment channels for Exchange A (only a BTC channel to Exchange B exists)
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 {
@@ -206,7 +205,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 }
 ```
 
-Exchange A opens `0.1 LTC` channel to Exchange B with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7)
+Exchange A opens a `0.1 LTC` channel to Exchange B with the following [LTC funding transaction](https://chain.so/tx/LTCTEST/3c5b1d738e251819f0eaf263e73eb268e73a2d231e5da00cdfada76b3c66e8f7)
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_ID_PUBKEY --local_amt=10000000 --push_amt=5000000 --ticker=LTC
 {
@@ -214,7 +213,7 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons openchannel --node_key=$X_B_I
 }
 ```
 
-Until confirmed Exchange A and Exchange B  list the new channel as pending channel.
+Until confirmed, Exchange A and Exchange B list the new channel as pending channel.
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons pendingchannels --ticker=LTC
 {
@@ -328,11 +327,11 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons listchannels
 
 ## checking graph information again
 ```diff
--Before we check swap route lets verify that the nodes see correct pictures of the network (graph). 
--You should notice 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. 
--Swap and route will not work if the infomation is missing. 
--Note the `time_lock_delta` which should be 144 for the Bitcoin channel and 576 for the Litecoin channel. 
--Note that this screen was done in a different session so you will not get exact numbers and strings. 
+-Before we check the swap route lets verify that the nodes see correct pictures of the network (graph). 
+-You should see 2 nodes and 2 edges. Both edges should have valid `node1_policy` and `node2_policy`. 
+-Swap and route will not work if infomation is missing. 
+-Make sure the `time_lock_delta` which should be *144* for the Bitcoin channel and *576* for the Litecoin channel. 
+-Note that this screen was done in a different session so you will not get exactly the same numbers and strings.
 ```
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons describegraph
@@ -510,6 +509,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons queryswaproutes --dest=$X_A_I
         ]
 }
 ```
+Let's move on!
 
 [ [index](/README.md), [previous](/LIGHTNING-02-connect.md), [next](/LIGHTNING-04-payment.md) ]
 
