@@ -111,7 +111,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 ## Bitcoin Payment
 
 ### Exchange B invoice
-Exchange B creates invoice for `100000 Satoshi`
+Exchange B creates an invoice for `100000 Satoshi`
 ```shell
 $ lncli --rpcserver=localhost:10002 --no-macaroons addinvoice --value=100000 --ticker=BTC
 {
@@ -254,7 +254,7 @@ $ lncli --rpcserver=localhost:10002 --no-macaroons listchannels
 
 
 ## Litecoin Payment
-Exchange A creates invoice for `5000 Litoshi`
+Exchange A creates an invoice for `5000 Litoshi`
 ```shell
 $ lncli --rpcserver=localhost:10001 --no-macaroons addinvoice --value=5000 --ticker=LTC
 {
