@@ -2,15 +2,15 @@
 
 # Lightning nodes Setup
 
-Once we installed all components and we have Litecoin and Bitcoin synced with their blockchains we can set up `lnd` processes. We are going to setup two processes that mimic two exchanges. We suggest that you run each lnd process in its own terminal and use another terminal with lncli. It will take the `lnd` processes some time to sync with the `btcd` and `ltcd` deamons. It is OK to setup the two `lnd`s in parallel.
+Once we installed all components and we have Litecoin and Bitcoin synced with their blockchains we can set up `lnd` processes. We are going to setup two processes that mimic two exchanges. We suggest to run each `lnd` process in its own terminal and use another terminal with lncli. It will take the `lnd` processes some time to sync with the `btcd` and `ltcd` daemons. It is OK to setup the two `lnd`s in parallel.
 
 ## Exchange A
 
-Open a terminal to set Exchange A `lnd` deamon
+Open a terminal to set Exchange A's `lnd` daemon
 
 ### Launch `lnd`
 Create a separate directory and launch `lnd` for Exchange A that uses both `Bitcoin` and `Litecoin` chains.
-Note that --debughtlc is currently mandatory for the success of a swap 
+Note that `--debughtlc` is currently mandatory for the success of a swap 
 ```shell
 $ mkdir -p $HOME/exchange-a
 $ cd $HOME/exchange-a
@@ -19,7 +19,7 @@ $ lnd --noencryptwallet --debughtlc --rpcport=10001 --peerport=10011 --restport=
 
 ## Exchange B
 
-Open another terminal to set Exchange B `lnd` deamon
+Open another terminal to set Exchange B's `lnd` deamon
 
 ### Launch `lnd`
 Create a separate directory and launch `lnd` for Exchange B that uses both `Bitcoin` and `Litecoin` chains. Keep in mind that `--debughtlc` is currently mandatory for the Poc.
@@ -30,11 +30,7 @@ $ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=
 ```
 ## Wait until Exchange A and Exchange B sync
 
-Give the two `lnd`s the time they need to sync with `btcd` and `ltcd`
-
-you can check the status by using the getinfo command (use the cli terminal for this)
-
-You would like to see `"synced_to_chain": true,` for both exchanges
+Give the two `lnd`s the time they need to sync with `btcd` and `ltcd`. You can check the status by using the `getinfo` command (use the cli terminal for this). You would want to see `"synced_to_chain": true,` for both exchanges.
 
 ## Check status 
 
@@ -110,9 +106,9 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons newaddress np2wkh --ticker=LT
 }
 ```
 
-## Use addresses to fund Exchnage A wallets
+## Use addresses to fund Exchange A's wallets
 
-Send some BTC (B0.2 or more is great) and some LTC (10 is great) to Exchange A addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet)). Balances should appear in wallet once BTC/LTC transaction area approved by minders.
+Send some BTC (0.2 or more is great) and some LTC (10 is great) to Exchange A's addresses via testnet faucets (see [README.bitcoin](README.bitcoin.md/#bitcoin-testnet-faucet) and [README.litecoin](README.litecoin.md/#litecoin-testnet-faucet)). Balances should appear in the wallet once the BTC/LTC transactions are mined.
 
 ## balance after funding the wallets
 
@@ -130,8 +126,8 @@ $ lncli --rpcserver=localhost:10001 --no-macaroons walletbalance --ticker=LTC
 
 
 
-We are now ready with Exchange A wallet. Note that Exchane B has LTC and BTC wallets but these are empty (zero balance). There is no need to fund Exchange B for our PoC. 
+We are now ready with Exchange A's wallets. Note that Exchange B has LTC and BTC wallets but these are empty (zero balance). There is no need to fund Exchange B for our PoC. 
 
-We are now ready to move to the next step and create P2P `lnd` network.
+We are now ready to move on to the next step and create the P2P `lnd` network.
 
 [ [index](/README.md), [previous](/LIGHTNING-00-install.md), [next](/LIGHTNING-02-connect.md) ]
