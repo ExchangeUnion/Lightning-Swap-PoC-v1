@@ -7,7 +7,7 @@ This guide can be used to perform a BTC<->LTC atomic swap payment between two ex
 It is recommanded to open 5 terminals to be used with this PoC. Each of the following component should use its own terminal: `btcd`, `ltcd`, `lnd` (exchange A), `lnd` (exchange B), `lncli` (both exchanges). 
 
 ## Install Lightning Dependencies
-Download latest (`Go`) package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
+Download latest `Go` package from [offical Go repository](https://golang.org/dl/) and uncompress to `/usr/local` .
 Alternativly you can use apt-get
 ```shell
 $ sudo apt-get install golang-1.10-go
