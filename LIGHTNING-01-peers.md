@@ -30,7 +30,7 @@ $ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=
 ```
 ## Wait until Exchange A and Exchange B are synced
 
-Give the two `lnd`s the time they need to sync with `btcd` and `ltcd`. You can check the status by using the `getinfo` command (use the cli terminal for this). You would want to see `"synced_to_chain": true,` for both exchanges.
+Give the two `lnd` the time they need to sync with `btcd` and `ltcd`. You can check the status by using the `getinfo` command (use the cli terminal for this). You would want to see `"synced_to_chain": true,` for both exchanges.
 
 ## Check status 
 
