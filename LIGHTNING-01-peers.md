@@ -28,7 +28,7 @@ $ mkdir -p $HOME/exchange-b
 $ cd $HOME/exchange-b
 $ lnd --noencryptwallet --debughtlc --rpcport=10002 --peerport=10012 --restport=8002 --datadir=data --logdir=logs --debuglevel=debug --nobootstrap --no-macaroons --bitcoin.active --bitcoin.testnet --litecoin.active --litecoin.testnet --bitcoin.rpcuser=xu --bitcoin.rpcpass=xu --litecoin.rpcuser=xu --litecoin.rpcpass=xu
 ```
-## Wait until Exchange A and Exchange B sync
+## Wait until Exchange A and Exchange B are synced
 
 Give the two `lnd`s the time they need to sync with `btcd` and `ltcd`. You can check the status by using the `getinfo` command (use the cli terminal for this). You would want to see `"synced_to_chain": true,` for both exchanges.
 
