@@ -3,7 +3,7 @@
 # Lightning Cross-Chain Swap
 
 ## LND processes restart
-```diffl
+```diff
 -Before we execute the atomic swap, we need to restart the lnd processes of exchange A and B again. 
 -You can use control+c at the terminal to do that. 
 ```
