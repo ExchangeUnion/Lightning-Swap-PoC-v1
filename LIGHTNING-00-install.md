@@ -32,7 +32,7 @@ Since the official `lnd` does not support cross chain swaps as of `lightningnetw
 #### Cross-chain swap enabled `lnd`
 To build and install the xchain-swap enabled experimental `lnd` daemon referenced [here](https://blog.lightning.engineering/announcement/2017/11/16/ln-swap.html)
 ```shell
-$ git clone -b swapz https://github.com/ExchangeUnion/lnd-swap-v1.git $GOPATH/src/github.com/lightningnetwork/lnd
+$ git clone -b swapz https://github.com/ExchangeUnion/lnd-swap.git $GOPATH/src/github.com/lightningnetwork/lnd
 $ cd $GOPATH/src/github.com/lightningnetwork/lnd
 $ glide install
 ```
